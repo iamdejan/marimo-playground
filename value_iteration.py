@@ -80,7 +80,7 @@ def _():
             return reward_forbidden
 
         if (r, c) == goal:
-            return 1
+            return reward_goal
 
         return 0
 

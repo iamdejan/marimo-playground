@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.19.11"
-app = marimo.App(width="medium", auto_download=["ipynb"])
+app = marimo.App(width="medium")
 
 
 @app.cell
@@ -62,32 +62,34 @@ def _(mo):
 def _():
     import numpy as np
 
-    size=(1,2) # (row, column)
-    actions=[
-        (0,-1), # move to the left
-        (0,0), # stay
-        (0,1), # move to the right
+    size = (1, 2)  # (row, column)
+    actions = [
+        (0, -1),  # move to the left
+        (0, 0),  # stay
+        (0, 1),  # move to the right
     ]
 
-    reward_probability = 1.0 # p(r|s,a)
-    state_transition_probability = 1.0 # p(s'|s,a)
+    reward_probability = 1.0  # p(r|s,a)
+    state_transition_probability = 1.0  # p(s'|s,a)
     convergence_threshold = 1e-4
     discount_rate = 0.9
 
     # Initialize reward
     reward_boundary = -1
     reward_goal = 1
-    goal = (0,1)
+    goal = (0, 1)
+
 
     def is_out_of_bounds(c: int) -> bool:
         return c < 0 or c >= size[1]
+
 
     def calculate_reward(c: int) -> int:
         if is_out_of_bounds(c):
             return reward_boundary
 
         if (0, c) == goal:
-            return 1
+            return reward_goal
 
         return 0
 
@@ -124,8 +126,6 @@ def _(
     size,
     state_transition_probability,
 ):
-    import math
-
     # Initialize value state
     v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
     state_space_size = len(v)
@@ -160,8 +160,13 @@ def _(
                     # bounce back
                     next_c = c
                 v_next_state = v[next_c]
-                new_v[s] = policy[a, s] * (reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state)
-                print(f"[STEP 1] v_{k}^{j}[{s}] = {policy[a, s]} * ({immediate_reward} + {discount_rate} * {v_next_state}) = {new_v[s]}")
+                new_v[s] = policy[a, s] * (
+                    reward_probability * immediate_reward
+                    + discount_rate * state_transition_probability * v_next_state
+                )
+                print(
+                    f"[STEP 1] v_{k}^{j}[{s}] = {policy[a, s]} * ({immediate_reward} + {discount_rate} * {v_next_state}) = {new_v[s]}"
+                )
                 delta = max(delta, abs(new_v[s] - v[s]))
 
             # without .copy(), v will have the same reference as new_v,
@@ -186,14 +191,17 @@ def _(
                 if is_out_of_bounds(next_c):
                     next_c = c
                 v_next_state = v[next_c]
-                q[s, a] = reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state
+                q[s, a] = (
+                    reward_probability * immediate_reward
+                    + discount_rate * state_transition_probability * v_next_state
+                )
 
-                if q[s,a] > max_q:
-                    max_q = q[s,a]
+                if q[s, a] > max_q:
+                    max_q = q[s, a]
                     best_a = a
 
             new_policy[best_a, s] = 1
-            current_action = np.argmax(policy[:,s])
+            current_action = np.argmax(policy[:, s])
             if current_action != best_a:
                 policy_stable = False
 

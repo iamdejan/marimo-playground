@@ -5,19 +5,6 @@
   },
   "cells": [
     {
-      "id": "Hbol",
-      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
-          }
-        }
-      ],
-      "console": []
-    },
-    {
       "id": "MJUe",
       "code_hash": "afd795045223803be34bfe7716c5efb0",
       "outputs": [
@@ -44,19 +31,6 @@
       "console": []
     },
     {
-      "id": "bkHC",
-      "code_hash": "6d2959d4bc7e331f7595038f4a7a350b",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<img src='./@file/34966-11078-q10aNYxT.png' />"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
       "id": "lEQa",
       "code_hash": "8b9c97d5d22929f231e262f9db635992",
       "outputs": [
@@ -64,19 +38,6 @@
           "type": "data",
           "data": {
             "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"initialize-environment\">Initialize environment</h3></span>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "PKri",
-      "code_hash": "edc70f55c3f60376a4e309ae81e5ec06",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
           }
         }
       ],
@@ -96,8 +57,47 @@
       "console": []
     },
     {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "6d2959d4bc7e331f7595038f4a7a350b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<img src='./@file/34966-13889-42Y6ZcqX.png' />"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "4a3b5de98497bf22477cfc3f1ab9d120",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
       "id": "SFPL",
-      "code_hash": "9f1652d998a2417f65290c980ec094d8",
+      "code_hash": "e8a8e0413413b6b8524e1e8eca2662f7",
       "outputs": [
         {
           "type": "data",
