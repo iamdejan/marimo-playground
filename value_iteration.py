@@ -45,29 +45,31 @@ def _(mo):
 def _():
     import numpy as np
 
-    size=(2,2)
+    size = (2, 2)
     actions = [
-        (-1, 0), # top
-        (0, 1), # right
-        (1, 0), # bottom
-        (0, -1), # left
-        (0, 0), # stay
+        (-1, 0),  # top
+        (0, 1),  # right
+        (1, 0),  # bottom
+        (0, -1),  # left
+        (0, 0),  # stay
     ]
 
-    reward_probability = 1.0 # p(r|s,a)
-    state_transition_probability = 1.0 # p(s'|s,a)
+    reward_probability = 1.0  # p(r|s,a)
+    state_transition_probability = 1.0  # p(s'|s,a)
     convergence_threshold = 1e-4
     discount_rate = 0.9
 
     # Initialize reward
     reward_boundary = reward_forbidden = -1
     reward_goal = 1
-    goal = (1,1)
+    goal = (1, 1)
 
-    forbidden_cells = [(0,1)]
+    forbidden_cells = [(0, 1)]
+
 
     def is_out_of_bounds(r: int, c: int) -> bool:
         return r < 0 or r >= size[0] or c < 0 or c >= size[1]
+
 
     def calculate_reward(r: int, c: int) -> int:
         if is_out_of_bounds(r, c):
@@ -147,17 +149,20 @@ def _(
                     # bounce back
                     next_r = r
                     next_c = c
-                v_next_state = v[next_r, next_c].item() # use v_k
-                q[s,a] = reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state
+                v_next_state = v[next_r, next_c].item()  # use v_k
+                q[s, a] = (
+                    reward_probability * immediate_reward
+                    + discount_rate * state_transition_probability * v_next_state
+                )
 
-                if q[s,a] > max_q:
-                    max_q = q[s,a]
+                if q[s, a] > max_q:
+                    max_q = q[s, a]
                     best_a = a
 
             policy[best_a, s] = 1
 
             new_v[r][c] = max_q
-        v = new_v # only update v after iteration ends
+        v = new_v  # only update v after iteration ends
         v_history.append(v.copy())
         policy_history.append(policy)
 
