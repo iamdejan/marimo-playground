@@ -137,7 +137,7 @@ def _(
         delta = 0
         for s in range(state_space_size):
             r = math.floor(s / size[0])
-            c = math.floor(s % size[1])
+            c = s % size[1]
 
             max_q = -float("inf")
             best_a = None
@@ -150,7 +150,8 @@ def _(
                     # bounce back
                     next_r = r
                     next_c = c
-                v_next_state = v[s].item()  # use v_k
+                next_s = next_r * size[0] + next_c
+                v_next_state = v[next_s].item()  # use v_k
                 q[s, a] = (
                     reward_probability * immediate_reward
                     + discount_rate * state_transition_probability * v_next_state
