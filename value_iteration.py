@@ -120,9 +120,9 @@ def _(
     import math
 
     # Initialize value state
-    v = np.zeros(shape=size)
+    v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
     v_history = []
-    state_space_size = len(v.flatten())
+    state_space_size = len(v)
 
     # Initialize q-table
     q = np.zeros(shape=(state_space_size, len(actions)), dtype=np.float64)
@@ -131,47 +131,46 @@ def _(
     policy_history = []
 
     k = 0
-    max_vs = [0, 0]
     while True:
-        new_v = np.zeros(shape=size)
+        new_v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
         policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
+        delta = 0
         for s in range(state_space_size):
             r = math.floor(s / size[0])
             c = s % size[1]
 
-            max_q = -999999
-            best_a = -999999
+            max_q = -float("inf")
+            best_a = None
             for a in range(len(actions)):
-                next_r = r + actions[a][0]
-                next_c = c + actions[a][1]
+                move = actions[a]
+                next_r = r + move[0]
+                next_c = c + move[1]
                 immediate_reward = calculate_reward(next_r, next_c)
                 if is_out_of_bounds(next_r, next_c):
                     # bounce back
                     next_r = r
                     next_c = c
-                v_next_state = v[next_r, next_c].item()  # use v_k
+                next_s = next_r * size[0] + next_c
+                v_next_state = v[next_s].item()  # use v_k
                 q[s, a] = (
                     reward_probability * immediate_reward
                     + discount_rate * state_transition_probability * v_next_state
                 )
 
                 if q[s, a] > max_q:
-                    max_q = q[s, a]
+                    max_q = q[s, a].item()
                     best_a = a
 
             policy[best_a, s] = 1
-
-            new_v[r][c] = max_q
+            new_v[s] = max_q
+            delta = max(delta, abs(new_v[s] - v[s]))
         v = new_v  # only update v after iteration ends
         v_history.append(v.copy())
         policy_history.append(policy)
 
         # break if converged
-        max_vs[0] = max_vs[1]
-        max_vs[1] = np.max(v)
-        abs_diff = abs(max_vs[0] - max_vs[1])
-        print(f"converged? |{max_vs[0]:.6f} - {max_vs[1]:.6f}| = {abs_diff:.6f}")
-        if abs_diff <= convergence_threshold:
+        print(f"converged? delta = {delta:.6f}")
+        if delta <= convergence_threshold:
             break
 
         k += 1
