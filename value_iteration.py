@@ -44,9 +44,10 @@ def _(mo):
 @app.cell
 def _():
     import numpy as np
+    from typing import Tuple
 
     size = (2, 2)
-    actions = [
+    actions: list[Tuple[int, int]] = [
         (-1, 0),  # top
         (0, 1),  # right
         (1, 0),  # bottom
@@ -54,17 +55,17 @@ def _():
         (0, 0),  # stay
     ]
 
-    reward_probability = 1.0  # p(r|s,a)
-    state_transition_probability = 1.0  # p(s'|s,a)
-    convergence_threshold = 1e-4
-    discount_rate = 0.9
+    reward_probability: float = 1.0  # p(r|s,a)
+    state_transition_probability: float = 1.0  # p(s'|s,a)
+    convergence_threshold: float = 1e-4
+    discount_rate: float = 0.9
 
     # Initialize reward
-    reward_boundary = reward_forbidden = -1
-    reward_goal = 1
-    goal = (1, 1)
+    reward_boundary = reward_forbidden = -1.0
+    reward_goal: float = 1
+    goal: Tuple[int, int] = (1, 1)
 
-    forbidden_cells = [(0, 1)]
+    forbidden_cells: list[Tuple[int, int]] = [(0, 1)]
 
 
     def is_out_of_bounds(r: int, c: int) -> bool:
@@ -107,28 +108,28 @@ def _(mo):
 
 @app.cell
 def _(
-    actions,
+    actions: "list[Tuple[int, int]]",
     calculate_reward,
-    convergence_threshold,
-    discount_rate,
+    convergence_threshold: float,
+    discount_rate: float,
     is_out_of_bounds,
     np,
-    reward_probability,
+    reward_probability: float,
     size,
-    state_transition_probability,
+    state_transition_probability: float,
 ):
     import math
 
     # Initialize value state
-    v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
-    v_history = []
-    state_space_size = len(v)
+    v: np.ndarray = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
+    v_history: list[np.ndarray] = []
+    state_space_size: int = len(v)
 
     # Initialize q-table
     q = np.zeros(shape=(state_space_size, len(actions)), dtype=np.float64)
 
     # Initialize policy
-    policy_history = []
+    policy_history: list[np.ndarray] = []
 
     k = 0
     while True:
@@ -190,13 +191,13 @@ def _(q):
 
 
 @app.cell
-def _(np, policy_history):
+def _(np, policy_history: "list[np.ndarray]"):
     np.array(policy_history, dtype=np.float64)
     return
 
 
 @app.cell
-def _(np, v_history):
+def _(np, v_history: "list[np.ndarray]"):
     np.array(v_history, dtype=np.float64)
     return
 
