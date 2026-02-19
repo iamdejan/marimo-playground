@@ -14,39 +14,14 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Policy Iteration
-
-    Policy iteration is another algorithm to find the optimal policy. Unlike value iteration, this algorithm doesn't directly solve Bellman optimality equation. However, it has an intimate relationship with value iteration, as shown later. Moreover, the idea of policy iteration is very important since it is widely utilized in reinforcement learning algorithms.
-
-    Policy iteration is an iterative algorithm. Each iteration has two steps:
-    1. Policy evaluation step: this step evaluates a given policy by calculating the corresponding state value.
-    2. Policy improvement step: this step is used to improve the policy. In particular, once $v_{\pi_{k}}$ has been calculated in the first step, a new policy $\pi_{k+1}$ can be obtained as: $\pi_{k+1} = \text{arg} \underset{\pi}{\text{max}}(r_{\pi} + \gamma P_{\pi} v_{\pi_{k}})$
-
-    Three questions naturally follow:
-    - How to solve the state value $v_{\pi_{k}}$?
-    - In the policy improvement step, why is the new policy $\pi_{k+1}$ better than $\pi_{k}$?
-    - Why can this algorithm converge to optimal policy?
-
-    ## How to solve the state value $v_{\pi_{k}}$?
-
-    There are 2 ways:
-    - Closed form: $v_{\pi} = (I - \gamma P_{\pi})^{-1} r_{\pi}$
-    - Iterative algorithm: $v_{\pi_{k}}^{(j+1)} = r_{\pi_{k}} + \gamma P_{\pi_{k}} v_{\pi_{k}}^{(j)}$. See [here](https://share.google/aimode/FEmRNlUZ0OGEvYjn7) for the difference between $j$ and $k$.
+    ## Example 2
     """)
     return
 
 
-@app.cell(hide_code=True)
+@app.cell
 def _(mo):
-    mo.md(r"""
-    ## Example 1
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.image(src="./images/policy_iteration_example_1.png")
+    mo.image(src="./images/policy_iteration_example_2.png")
     return
 
 
@@ -65,11 +40,13 @@ def _():
     from jaxtyping import jaxtyped
     from beartype import beartype as typechecker
 
-    size = (1, 2)  # (row, column)
+    size = (5, 5)  # (row, column)
     actions: list[Tuple[int, int]] = [
-        (0, -1),  # move to the left
+        (-1, 0),  # top
+        (0, 1),  # right
+        (1, 0),  # bottom
+        (0, -1),  # left
         (0, 0),  # stay
-        (0, 1),  # move to the right
     ]
 
     reward_probability: float = 1.0  # p(r|s,a)
@@ -78,22 +55,34 @@ def _():
     discount_rate: float = 0.9
 
     # Initialize reward
-    reward_boundary: float = -1
-    reward_goal: float = 1
-    goal: Tuple[int, int] = (0, 1)
+    reward_boundary = -1.0
+    reward_forbidden = -10.0
+    reward_goal: float = 1.0
+    goal: Tuple[int, int] = (3, 2)
+
+    forbidden_cells: list[Tuple[int, int]] = [
+        (1, 1),
+        (1, 2),
+        (2, 2),
+        (3, 1),
+        (3, 3),
+        (4, 1),
+    ]
 
 
-    @jaxtyped(typechecker=typechecker)
-    def is_out_of_bounds(c: int) -> bool:
-        return c < 0 or c >= size[1]
+    def is_out_of_bounds(r: int, c: int) -> bool:
+        return r < 0 or r >= size[0] or c < 0 or c >= size[1]
 
 
-    @jaxtyped(typechecker=typechecker)
-    def calculate_reward(c: int) -> int:
-        if is_out_of_bounds(c):
+    def calculate_reward(r: int, c: int) -> int:
+        if is_out_of_bounds(r, c):
             return reward_boundary
 
-        if (0, c) == goal:
+        # hardcode forbidden cells
+        if (r, c) in forbidden_cells:
+            return reward_forbidden
+
+        if (r, c) == goal:
             return reward_goal
 
         return 0
@@ -137,6 +126,8 @@ def _(
     state_transition_probability: float,
     typechecker,
 ):
+    import math
+
     from jaxtyping import Float64
 
     # Initialize value state
@@ -151,8 +142,8 @@ def _(
 
     # Initialize policy
     policy = np.zeros(shape=(actions_len, state_space_size), dtype=np.float64)
-    policy[0, 0] = 1
-    policy[0, 1] = 1
+    for s in range(state_space_size):
+        policy[4, s] = 1
     print("Initial policy:\n", policy)
     policy_stable = False
 
@@ -168,16 +159,20 @@ def _(
         new_v = np.zeros_like(v, dtype=np.float64)
         delta: float = 0.0
         for s in range(state_space_size):
+            r = math.floor(s / size[0])
             c = s % size[1]
 
             a = np.argmax(policy[:, s])
             move: Tuple[int, int] = actions[a]
+            next_r: int = r + move[0]
             next_c: int = c + move[1]
-            immediate_reward = calculate_reward(next_c)
-            if is_out_of_bounds(next_c):
+            immediate_reward = calculate_reward(next_r, next_c)
+            if is_out_of_bounds(next_r, next_c):
                 # bounce back
+                next_r = r
                 next_c = c
-            v_next_state: float = v[next_c]
+            next_s = math.floor(next_r * size[0] + next_c)
+            v_next_state: float = v[next_s]
             new_v[s] = policy[a, s] * (
                 reward_probability * immediate_reward
                 + discount_rate * state_transition_probability * v_next_state
@@ -232,16 +227,21 @@ def _(
         new_policy = np.zeros_like(policy, dtype=np.float64)
         policy_stable = True
         for s in range(state_space_size):
+            r = math.floor(s / size[0])
             c = s % size[1]
 
             best_a = None
             max_q = -float("inf")
             for a in range(len(actions)):
-                next_c = c + actions[a][1]
-                immediate_reward = calculate_reward(next_c)
-                if is_out_of_bounds(next_c):
+                move: Tuple[int, int] = actions[a]
+                next_r: int = r + move[0]
+                next_c: int = c + move[1]
+                immediate_reward = calculate_reward(next_r, next_c)
+                if is_out_of_bounds(next_r, next_c):
+                    next_r = r
                     next_c = c
-                v_next_state = v[next_c]
+                next_s = next_r * size[0] + next_c
+                v_next_state: float = v[next_s]
                 q[s, a] = (
                     reward_probability * immediate_reward
                     + discount_rate * state_transition_probability * v_next_state
@@ -276,7 +276,7 @@ def _(
         # break if policy is stable
         if policy_stable:
             break
-    return k, policy, q_history, v_history
+    return k, policy, v_history
 
 
 @app.cell
@@ -286,20 +286,39 @@ def _(k):
 
 
 @app.cell
-def _(policy):
-    policy
+def _(np, policy):
+    move_symbols = ["↑", "→", "↓", "←", "∘"]
+
+
+    def print_best_move_on_grid(best_move_according_to_policy):
+        i = 0
+        while i < len(best_move_according_to_policy):
+            for w in range(5):
+                best_move_index = best_move_according_to_policy[i]
+                print(move_symbols[best_move_index], end="\t")
+                i += 1
+            print("")
+
+
+    best_move_according_to_policy = np.argmax(policy, axis=0)
+    print_best_move_on_grid(best_move_according_to_policy)
     return
 
 
 @app.cell
 def _(np, v_history: "list[np.ndarray]"):
-    np.array(v_history, dtype=np.float64)
-    return
+    def print_data(data):
+        i = 0
+        while i < len(data):
+            for w in range(5):
+                print(data[i], end=" \t")
+                i += 1
+            print("")
 
 
-@app.cell
-def _(np, q_history: "list[np.ndarray]"):
-    np.array(q_history, dtype=np.float64)
+    for v_data in v_history:
+        print_data(np.round(v_data, decimals=1))
+        print("")
     return
 
 
