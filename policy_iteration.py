@@ -240,10 +240,7 @@ def _(
                 if is_out_of_bounds(next_c):
                     next_c = c
                 v_next_state = v[next_c]
-                q[s, a] = (
-                    reward_probability * immediate_reward
-                    + discount_rate * state_transition_probability * v_next_state
-                )
+                q[s, a] = reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state
 
                 if q[s, a] > max_q:
                     max_q = q[s, a]

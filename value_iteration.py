@@ -153,10 +153,7 @@ def _(
                     next_c = c
                 next_s = next_r * size[0] + next_c
                 v_next_state = v[next_s].item()  # use v_{k}, not v_{k+1}
-                q[s, a] = (
-                    reward_probability * immediate_reward
-                    + discount_rate * state_transition_probability * v_next_state
-                )
+                q[s, a] = reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state
 
                 if q[s, a] > max_q:
                     max_q = q[s, a].item()
