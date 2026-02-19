@@ -61,29 +61,34 @@ def _(mo):
 @app.cell
 def _():
     import numpy as np
+    from typing import Tuple
+    from jaxtyping import jaxtyped
+    from beartype import beartype as typechecker
 
     size = (1, 2)  # (row, column)
-    actions = [
+    actions: list[Tuple[int, int]] = [
         (0, -1),  # move to the left
         (0, 0),  # stay
         (0, 1),  # move to the right
     ]
 
-    reward_probability = 1.0  # p(r|s,a)
-    state_transition_probability = 1.0  # p(s'|s,a)
-    convergence_threshold = 1e-4
-    discount_rate = 0.9
+    reward_probability: float = 1.0  # p(r|s,a)
+    state_transition_probability: float = 1.0  # p(s'|s,a)
+    convergence_threshold: float = 1e-4
+    discount_rate: float = 0.9
 
     # Initialize reward
-    reward_boundary = -1
-    reward_goal = 1
-    goal = (0, 1)
+    reward_boundary: float = -1
+    reward_goal: float = 1
+    goal: Tuple[int, int] = (0, 1)
 
 
+    @jaxtyped(typechecker=typechecker)
     def is_out_of_bounds(c: int) -> bool:
         return c < 0 or c >= size[1]
 
 
+    @jaxtyped(typechecker=typechecker)
     def calculate_reward(c: int) -> int:
         if is_out_of_bounds(c):
             return reward_boundary
@@ -94,15 +99,18 @@ def _():
         return 0
 
     return (
+        Tuple,
         actions,
         calculate_reward,
         convergence_threshold,
         discount_rate,
         is_out_of_bounds,
+        jaxtyped,
         np,
         reward_probability,
         size,
         state_transition_probability,
+        typechecker,
     )
 
 
@@ -116,20 +124,24 @@ def _(mo):
 
 @app.cell
 def _(
-    actions,
+    Tuple,
+    actions: "list[Tuple[int, int]]",
     calculate_reward,
-    convergence_threshold,
-    discount_rate,
+    convergence_threshold: float,
+    discount_rate: float,
     is_out_of_bounds,
+    jaxtyped,
     np,
-    reward_probability,
+    reward_probability: float,
     size,
-    state_transition_probability,
+    state_transition_probability: float,
+    typechecker,
 ):
+    from jaxtyping import Float64
+
     # Initialize value state
     v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
     state_space_size = len(v)
-    print(f"v = {v}")
 
     # Initialize q-table
     q = np.zeros(shape=(state_space_size, len(actions)), dtype=np.float64)
@@ -140,11 +152,17 @@ def _(
     policy[actions[0], 1] = 1
     policy_stable = False
 
-    k = 1
-    while True:
-        # Step 1: policy evaluation
+    actions_len = len(actions)
+
+
+    @jaxtyped(typechecker=typechecker)
+    def policy_evaluation(
+        state_space_size: int,
+        policy: Float64[np.ndarray, "actions_len state_space_size"],
+        actions: list[Tuple[int, int]],
+        v: Float64[np.ndarray, "state_space_size"],
+    ) -> Float64[np.ndarray, "state_space_size"]:
         new_v = np.zeros_like(v)
-        new_policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
 
         j = 1
         while True:
@@ -178,7 +196,19 @@ def _(
             if delta <= convergence_threshold:
                 break
 
-        # Step 2: policy improvement
+        return v
+
+
+    def policy_improvement(
+        actions: list[Tuple[int, int]],
+        state_space_size: int,
+        q: Float64[np.ndarray, "actions_len state_space_size"],
+    ) -> Tuple[
+        Float64[np.ndarray, "actions_len state_space_size"],
+        Float64[np.ndarray, "actions_len state_space_size"],
+        bool,
+    ]:
+        new_policy = np.zeros_like(policy)
         policy_stable = True
         for s in range(state_space_size):
             c = s % size[1]
@@ -205,6 +235,17 @@ def _(
             if current_action != best_a:
                 policy_stable = False
 
+        return new_policy, q, policy_stable
+
+
+    k = 1
+    while True:
+        # Step 1: policy evaluation
+        v = policy_evaluation(state_space_size, policy, actions, v)
+
+        # Step 2: policy improvement
+        new_policy, q, policy_stable = policy_improvement(actions, state_space_size, q)
+
         policy = new_policy
         k += 1
 
@@ -223,11 +264,6 @@ def _(k):
 @app.cell
 def _(policy):
     policy
-    return
-
-
-@app.cell
-def _():
     return
 
 
