@@ -156,36 +156,54 @@ def _(
 
 
     @jaxtyped(typechecker=typechecker)
+    def policy_evaluation_one_iteration(
+        state_space_size: int,
+        policy: Float64[np.ndarray, "actions_len state_space_size"],
+        actions: list[Tuple[int, int]],
+        v: Float64[np.ndarray, "state_space_size"],
+        j: int,
+    ) -> Tuple[Float64[np.ndarray, "state_space_size"], float]:
+        new_v = np.zeros_like(v)
+        delta = 0
+        for s in range(state_space_size):
+            c = s % size[1]
+
+            a = np.argmax(policy[:, s])
+            move: Tuple[int, int] = actions[a]
+            next_c: int = c + move[1]
+            immediate_reward = calculate_reward(next_c)
+            if is_out_of_bounds(next_c):
+                # bounce back
+                next_c = c
+            v_next_state: float = v[next_c]
+            new_v[s] = policy[a, s] * (
+                reward_probability * immediate_reward
+                + discount_rate * state_transition_probability * v_next_state
+            )
+            print(
+                f"[STEP 1] v_{k}^{j}[{s}] = {policy[a, s]} * ({immediate_reward} + {discount_rate} * {v_next_state}) = {new_v[s]}"
+            )
+            delta = max(delta, abs(new_v[s] - v[s]))
+
+        return new_v, delta
+
+
+    @jaxtyped(typechecker=typechecker)
     def policy_evaluation(
         state_space_size: int,
         policy: Float64[np.ndarray, "actions_len state_space_size"],
         actions: list[Tuple[int, int]],
         v: Float64[np.ndarray, "state_space_size"],
     ) -> Float64[np.ndarray, "state_space_size"]:
-        new_v = np.zeros_like(v)
-
         j = 1
         while True:
-            delta = 0
-            for s in range(state_space_size):
-                c = s % size[1]
-
-                a = np.argmax(policy[:, s])
-                move = actions[a]
-                next_c = c + move[1]
-                immediate_reward = calculate_reward(next_c)
-                if is_out_of_bounds(next_c):
-                    # bounce back
-                    next_c = c
-                v_next_state = v[next_c]
-                new_v[s] = policy[a, s] * (
-                    reward_probability * immediate_reward
-                    + discount_rate * state_transition_probability * v_next_state
-                )
-                print(
-                    f"[STEP 1] v_{k}^{j}[{s}] = {policy[a, s]} * ({immediate_reward} + {discount_rate} * {v_next_state}) = {new_v[s]}"
-                )
-                delta = max(delta, abs(new_v[s] - v[s]))
+            new_v, delta = policy_evaluation_one_iteration(
+                state_space_size,
+                policy,
+                actions,
+                v,
+                j,
+            )
 
             # without .copy(), v will have the same reference as new_v,
             # thus messing with the values
@@ -199,6 +217,7 @@ def _(
         return v
 
 
+    @jaxtyped(typechecker=typechecker)
     def policy_improvement(
         actions: list[Tuple[int, int]],
         state_space_size: int,
