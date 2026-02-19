@@ -126,10 +126,11 @@ def _(
     size,
     state_transition_probability,
 ):
+    from typing import Tuple
+
     # Initialize value state
     v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
     state_space_size = len(v)
-    print(f"v = {v}")
 
     # Initialize q-table
     q = np.zeros(shape=(state_space_size, len(actions)), dtype=np.float64)
@@ -140,11 +141,8 @@ def _(
     policy[actions[0], 1] = 1
     policy_stable = False
 
-    k = 1
-    while True:
-        # Step 1: policy evaluation
+    def policy_evaluation(state_space_size: int, policy: np.ndarray, actions: list[Tuple[int, int]], v: np.ndarray) -> np.ndarray:
         new_v = np.zeros_like(v)
-        new_policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
 
         j = 1
         while True:
@@ -178,7 +176,10 @@ def _(
             if delta <= convergence_threshold:
                 break
 
-        # Step 2: policy improvement
+        return v
+
+    def policy_improvement(actions: list[Tuple[int, int]], state_space_size: int, q: np.ndarray) -> Tuple[np.ndarray, np.ndarray, bool]:
+        new_policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
         policy_stable = True
         for s in range(state_space_size):
             c = s % size[1]
@@ -205,6 +206,16 @@ def _(
             if current_action != best_a:
                 policy_stable = False
 
+        return new_policy, q, policy_stable
+
+    k = 1
+    while True:
+        # Step 1: policy evaluation
+        v = policy_evaluation(state_space_size, policy, actions, v)
+
+        # Step 2: policy improvement
+        new_policy, q, policy_stable = policy_improvement(actions, state_space_size, q)
+
         policy = new_policy
         k += 1
 
@@ -223,11 +234,6 @@ def _(k):
 @app.cell
 def _(policy):
     policy
-    return
-
-
-@app.cell
-def _():
     return
 
 
