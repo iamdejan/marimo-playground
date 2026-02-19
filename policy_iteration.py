@@ -141,7 +141,10 @@ def _(
     policy[actions[0], 1] = 1
     policy_stable = False
 
-    def policy_evaluation(state_space_size: int, policy: np.ndarray, actions: list[Tuple[int, int]], v: np.ndarray) -> np.ndarray:
+
+    def policy_evaluation(
+        state_space_size: int, policy: np.ndarray, actions: list[Tuple[int, int]], v: np.ndarray
+    ) -> np.ndarray:
         new_v = np.zeros_like(v)
 
         j = 1
@@ -178,7 +181,10 @@ def _(
 
         return v
 
-    def policy_improvement(actions: list[Tuple[int, int]], state_space_size: int, q: np.ndarray) -> Tuple[np.ndarray, np.ndarray, bool]:
+
+    def policy_improvement(
+        actions: list[Tuple[int, int]], state_space_size: int, q: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray, bool]:
         new_policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
         policy_stable = True
         for s in range(state_space_size):
@@ -207,6 +213,7 @@ def _(
                 policy_stable = False
 
         return new_policy, q, policy_stable
+
 
     k = 1
     while True:
