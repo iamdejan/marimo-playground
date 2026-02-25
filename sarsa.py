@@ -256,6 +256,47 @@ def _(episode_lengths):
 
 
 @app.cell
+def _(episode_lengths, np, plt):
+    def render_rolled_episode_lengths():
+        # 1. Define how many episodes to average together
+        window_size = 10
+
+        # 2. Calculate the rolling average using np.convolve
+        # The 'valid' mode ensures it only calculates averages where it has a full window of data
+        rolling_avg = np.convolve(episode_lengths, np.ones(window_size) / window_size, mode="valid")
+
+        # 3. Create the figure and axis objects
+        fig, ax = plt.subplots(figsize=(10, 5))
+
+        # Plot the raw data in the background (faded)
+        ax.plot(episode_lengths, color="#1f77b4", alpha=0.3, label="Raw Episode Length")
+
+        # Plot the rolling average in the foreground (bold and contrasting)
+        # We shift the x-axis so the moving average aligns correctly with the end of each window
+        x_rolling = np.arange(window_size - 1, len(episode_lengths))
+        ax.plot(
+            x_rolling, rolling_avg, color="#d62728", linewidth=2.5, label=f"{window_size}-Episode Trend"
+        )
+
+        # Add labels, title, and legend
+        ax.set_title("SARSA Agent Training Progress", fontsize=14, pad=15)
+        ax.set_xlabel("Episode", fontsize=12)
+        ax.set_ylabel("Steps to Reach Goal", fontsize=12)
+        ax.legend(loc="upper right", fontsize=10)
+
+        # Add a subtle grid
+        ax.grid(True, linestyle="--", alpha=0.5)
+
+        # In Marimo, leaving the figure object as the last expression renders it
+        return fig
+
+
+    rolled_episode_lengths_fig = render_rolled_episode_lengths()
+    rolled_episode_lengths_fig
+    return
+
+
+@app.cell
 def _(plt, rewards):
     def render_rewards():
         # Assuming episode_lengths is already defined from your previous cell
@@ -270,7 +311,7 @@ def _(plt, rewards):
         # Add labels and a title
         ax.set_title("SARSA Agent Training Rewards", fontsize=14)
         ax.set_xlabel("Episode index", fontsize=12)
-        ax.set_ylabel("Totla rewards", fontsize=12)
+        ax.set_ylabel("Total rewards", fontsize=12)
 
         # Add a grid to make it easier to read
         ax.grid(True, linestyle="--", alpha=0.6)
@@ -281,6 +322,47 @@ def _(plt, rewards):
 
     rewards_fig = render_rewards()
     rewards_fig
+    return
+
+
+@app.cell
+def _(np, plt, rewards):
+    def render_rolled_rewards():
+        # 1. Define how many episodes to average together
+        window_size = 10
+
+        # 2. Calculate the rolling average using np.convolve
+        # The 'valid' mode ensures it only calculates averages where it has a full window of data
+        rolling_avg = np.convolve(rewards, np.ones(window_size) / window_size, mode="valid")
+
+        # 3. Create the figure and axis objects
+        fig, ax = plt.subplots(figsize=(10, 5))
+
+        # Plot the raw data in the background (faded)
+        ax.plot(rewards, color="#1f77b4", alpha=0.3, label="Raw Episode Length")
+
+        # Plot the rolling average in the foreground (bold and contrasting)
+        # We shift the x-axis so the moving average aligns correctly with the end of each window
+        x_rolling = np.arange(window_size - 1, len(rewards))
+        ax.plot(
+            x_rolling, rolling_avg, color="#d62728", linewidth=2.5, label=f"{window_size}-Episode Trend"
+        )
+
+        # Add labels, title, and legend
+        ax.set_title("SARSA Agent Training Rewards", fontsize=14)
+        ax.set_xlabel("Episode index", fontsize=12)
+        ax.set_ylabel("Total rewards", fontsize=12)
+        ax.legend(loc="upper right", fontsize=10)
+
+        # Add a subtle grid
+        ax.grid(True, linestyle="--", alpha=0.5)
+
+        # In Marimo, leaving the figure object as the last expression renders it
+        return fig
+
+
+    rolled_rewards_fig = render_rolled_rewards()
+    rolled_rewards_fig
     return
 
 
