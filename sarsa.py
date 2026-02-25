@@ -48,7 +48,7 @@ def _():
     convergence_threshold: float = 1e-4
     discount_rate: float = 0.9
     alpha: float = 0.05  # learning rate
-    epsilon = 0.15  # 0.1 = 10% random actions
+    epsilon = 0.1  # 0.1 = 10% random actions
 
     # Initialize reward
     reward_boundary = -10.0
