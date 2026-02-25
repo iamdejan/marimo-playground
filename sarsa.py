@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.19.11"
+__generated_with = "0.20.2"
 app = marimo.App(width="medium")
 
 
@@ -47,10 +47,11 @@ def _():
     state_transition_probability: float = 1.0  # p(s'|s,a)
     convergence_threshold: float = 1e-4
     discount_rate: float = 0.9
-    alpha: float = 1e-3  # learning rate
+    alpha: float = 0.05  # learning rate
+    epsilon = 0.15  # 0.1 = 10% random actions
 
     # Initialize reward
-    reward_boundary = -1.0
+    reward_boundary = -10.0
     reward_forbidden = -10.0
     reward_goal: float = 1.0
     goal: Tuple[int, int] = (3, 2)
@@ -87,6 +88,7 @@ def _():
         alpha,
         calculate_reward,
         discount_rate,
+        epsilon,
         goal,
         is_out_of_bounds,
         np,
@@ -108,6 +110,7 @@ def _(
     alpha: float,
     calculate_reward,
     discount_rate: float,
+    epsilon,
     goal: "Tuple[int, int]",
     is_out_of_bounds,
     np,
@@ -115,70 +118,89 @@ def _(
 ):
     import math
 
+    seed = 1772030113
+    np.random.seed(seed)
+
     # Initialize value state
     v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
     state_space_size = len(v)
-    v_history: list[np.ndarray] = []
 
     # Initialize q-table
     actions_len = len(actions)
     q = np.zeros(shape=(state_space_size, actions_len), dtype=np.float64)
-    q_history: list[np.ndarray] = []
 
-    # Initialize policy
-    policy = np.full(shape=(actions_len, state_space_size), fill_value=0.2, dtype=np.float64)
+    # Initialize policy (equal probability for all actions initially)
+    policy = np.full(
+        shape=(actions_len, state_space_size), fill_value=1.0 / actions_len, dtype=np.float64
+    )
 
-    # Initialize epsilon
-    epsilon = 1  # 1 = 100% random actions
-    epsilon_decay_rate = 0.00001  # epsilon decay rate
+    # Episode
+    num_episodes = 1000  # Added an outer loop for episodes
+    episode_lengths = np.zeros(shape=(num_episodes,), dtype=np.int64)
+    rewards = np.zeros(shape=(num_episodes,), dtype=np.int64)
 
-    s = 0  # initialize state from top-left (cell 0)
-    episode = 0
-    a = np.argmax(policy[:, s])
-    while True:
-        r = math.floor(s / size[0])
-        c = s % size[1]
-        print(f"current location = {r, c}")
-        if (r, c) == goal:
-            break
+    for episode in range(num_episodes):
+        s = 0  # Initialize state from top-left (cell 0) at the start of EVERY episode
 
-        move = actions[a]
-        print(f"a = {a}, move = {move}")
-        next_r: int = r + move[0]
-        next_c: int = c + move[1]
-        reward = calculate_reward(next_r, next_c)
-        if is_out_of_bounds(next_r, next_c):
-            # bounce back
-            next_r = r
-            next_c = c
-        next_s = math.floor(next_r * size[0] + next_c)
-        next_a = np.argmax(policy[:, next_s])
+        # 1. SAMPLE action based on policy probabilities
+        a = np.random.choice(actions_len, p=policy[:, s])
 
-        next_q = q.copy()
-        next_q[s, a] = q[s, a] - alpha * (q[s, a] - (reward + discount_rate * q[next_s, next_a]))
+        episode_length = 0
+        total_reward = 0
+        while True:
+            # 2. Fix math: Use size[1] (columns) for coordinate conversion
+            r = math.floor(s / size[1])
+            c = s % size[1]
 
-        next_policy = policy.copy()
-        best_a = np.argmax(next_q[s, :])
-        for a_idx in range(len(actions)):
-            if a_idx == best_a:
-                next_policy[a_idx, s] = 1 - (epsilon / len(actions)) * (len(actions) - 1)
-            else:
-                next_policy[a_idx, s] = epsilon / len(actions)
+            if (r, c) == goal:
+                break
 
-        q = next_q
-        policy = next_policy
-        s = next_s
-        a = next_a
+            move = actions[a]
+            next_r: int = r + move[0]
+            next_c: int = c + move[1]
+            reward = calculate_reward(next_r, next_c)
+            total_reward += reward
 
-        episode += 1
-        epsilon = max(epsilon - epsilon_decay_rate, 0.0)
-        print("")
-    return episode, policy
+            if is_out_of_bounds(next_r, next_c):
+                # bounce back
+                next_r = r
+                next_c = c
+
+            next_s = math.floor(next_r * size[1] + next_c)
+
+            # 3. SAMPLE next action based on probabilities
+            # If
+            next_a = np.random.choice(actions_len, p=policy[:, next_s])
+
+            # SARSA Q-table update (In-place)
+            q[s, a] = q[s, a] - alpha * (q[s, a] - (reward + discount_rate * q[next_s, next_a]))
+
+            # Epsilon-greedy policy update (In-place)
+            best_a = np.argmax(q[s, :])
+            for a_idx in range(actions_len):
+                if a_idx == best_a:
+                    # Simplified your math here slightly, does the exact same thing
+                    policy[a_idx, s] = 1.0 - epsilon + (epsilon / actions_len)
+                else:
+                    policy[a_idx, s] = epsilon / actions_len
+
+            # Move to next state/action
+            s = next_s
+            a = next_a
+            episode_length += 1
+
+        # Print progress occasionally
+        print(f"Episode {episode + 1} completed")
+        episode_lengths[episode] = episode_length
+        rewards[episode] = total_reward
+
+    print("Training finished!")
+    return episode_lengths, policy, rewards
 
 
 @app.cell
-def _(episode):
-    episode
+def _(episode_lengths):
+    episode_lengths
     return
 
 
@@ -203,7 +225,62 @@ def _(np, policy):
 
 
 @app.cell
-def _():
+def _(episode_lengths):
+    import matplotlib.pyplot as plt
+
+
+    def render_episode_lengths():
+        # Assuming episode_lengths is already defined from your previous cell
+        # episode_lengths = np.array([...])
+
+        # Create the figure and axis objects
+        fig, ax = plt.subplots(figsize=(10, 5))
+
+        # Plot the raw data
+        ax.plot(episode_lengths, color="#1f77b4", alpha=0.8, linewidth=1.5)
+
+        # Add labels and a title
+        ax.set_title("SARSA Agent Training Progress", fontsize=14)
+        ax.set_xlabel("Episode index", fontsize=12)
+        ax.set_ylabel("Episode length", fontsize=12)
+
+        # Add a grid to make it easier to read
+        ax.grid(True, linestyle="--", alpha=0.6)
+        return fig
+
+
+    # In Marimo, simply leaving the figure variable at the bottom renders it
+    episode_lengths_fig = render_episode_lengths()
+    episode_lengths_fig
+    return (plt,)
+
+
+@app.cell
+def _(plt, rewards):
+    def render_rewards():
+        # Assuming episode_lengths is already defined from your previous cell
+        # episode_lengths = np.array([...])
+
+        # Create the figure and axis objects
+        fig, ax = plt.subplots(figsize=(10, 5))
+
+        # Plot the raw data
+        ax.plot(rewards, color="#1f77b4", alpha=0.8, linewidth=1.5)
+
+        # Add labels and a title
+        ax.set_title("SARSA Agent Training Rewards", fontsize=14)
+        ax.set_xlabel("Episode index", fontsize=12)
+        ax.set_ylabel("Totla rewards", fontsize=12)
+
+        # Add a grid to make it easier to read
+        ax.grid(True, linestyle="--", alpha=0.6)
+
+        # In Marimo, simply leaving the figure variable at the bottom renders it
+        return fig
+
+
+    rewards_fig = render_rewards()
+    rewards_fig
     return
 
 
