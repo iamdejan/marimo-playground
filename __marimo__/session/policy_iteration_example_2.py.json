@@ -1,22 +1,9 @@
 {
   "version": "1",
   "metadata": {
-    "marimo_version": "0.19.11"
+    "marimo_version": "0.20.2"
   },
   "cells": [
-    {
-      "id": "Hbol",
-      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
-          }
-        }
-      ],
-      "console": []
-    },
     {
       "id": "MJUe",
       "code_hash": "5eed5ebc230499ca8664a748ed9b9e87",
@@ -25,19 +12,6 @@
           "type": "data",
           "data": {
             "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"example-2\">Example 2</h2></span>"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "vblA",
-      "code_hash": "01f5dcd80b8e42fcdbaf55e52d41c413",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<img src='./@file/29860-16716-koDzGpYb.png' />"
           }
         }
       ],
@@ -57,19 +31,6 @@
       "console": []
     },
     {
-      "id": "lEQa",
-      "code_hash": "a3df14c60e53d3e3cd672e3835c9265c",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
-          }
-        }
-      ],
-      "console": []
-    },
-    {
       "id": "PKri",
       "code_hash": "701aa75ff7901257121bb87e2f40d337",
       "outputs": [
@@ -83,8 +44,47 @@
       "console": []
     },
     {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "01f5dcd80b8e42fcdbaf55e52d41c413",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<img src='./@file/29860-16239-5rMpDZ7w.png' />"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "a3df14c60e53d3e3cd672e3835c9265c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
       "id": "Xref",
-      "code_hash": "a1463b0cbdc3201ec6deb57fc815a38b",
+      "code_hash": "9e9d84f107249ccc726a75e63bb659d5",
       "outputs": [
         {
           "type": "data",

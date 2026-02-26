@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.19.11"
+__generated_with = "0.20.2"
 app = marimo.App(width="medium")
 
 
@@ -159,8 +159,7 @@ def _(
         new_v = np.zeros_like(v, dtype=np.float64)
         delta: float = 0.0
         for s in range(state_space_size):
-            r = math.floor(s / size[0])
-            c = s % size[1]
+            r, c = divmod(s, size[1])
 
             a = np.argmax(policy[:, s])
             move: Tuple[int, int] = actions[a]
@@ -171,7 +170,7 @@ def _(
                 # bounce back
                 next_r = r
                 next_c = c
-            next_s = math.floor(next_r * size[0] + next_c)
+            next_s = math.floor(next_r * size[1] + next_c)
             v_next_state: float = v[next_s]
             new_v[s] = policy[a, s] * (
                 reward_probability * immediate_reward

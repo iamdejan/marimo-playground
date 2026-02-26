@@ -1,22 +1,9 @@
 {
   "version": "1",
   "metadata": {
-    "marimo_version": "0.19.11"
+    "marimo_version": "0.20.2"
   },
   "cells": [
-    {
-      "id": "Hbol",
-      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
-          }
-        }
-      ],
-      "console": []
-    },
     {
       "id": "MJUe",
       "code_hash": "afd795045223803be34bfe7716c5efb0",
@@ -44,19 +31,6 @@
       "console": []
     },
     {
-      "id": "bkHC",
-      "code_hash": "6d2959d4bc7e331f7595038f4a7a350b",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/html": "<img src='./@file/34966-13614-8IOGwElU.png' />"
-          }
-        }
-      ],
-      "console": []
-    },
-    {
       "id": "lEQa",
       "code_hash": "8b9c97d5d22929f231e262f9db635992",
       "outputs": [
@@ -70,8 +44,21 @@
       "console": []
     },
     {
-      "id": "PKri",
-      "code_hash": "b86c927230c945af097656e968511e91",
+      "id": "Xref",
+      "code_hash": "701aa75ff7901257121bb87e2f40d337",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"search-for-optimal-value-and-optimal-policy\">Search for optimal value and optimal policy</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
       "outputs": [
         {
           "type": "data",
@@ -83,13 +70,26 @@
       "console": []
     },
     {
-      "id": "Xref",
-      "code_hash": "701aa75ff7901257121bb87e2f40d337",
+      "id": "bkHC",
+      "code_hash": "6d2959d4bc7e331f7595038f4a7a350b",
       "outputs": [
         {
           "type": "data",
           "data": {
-            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"search-for-optimal-value-and-optimal-policy\">Search for optimal value and optimal policy</h3></span>"
+            "text/html": "<img src='./@file/34966-16212-pvggCN7q.png' />"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "b86c927230c945af097656e968511e91",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
           }
         }
       ],
