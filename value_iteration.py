@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.19.11"
+__generated_with = "0.20.2"
 app = marimo.App(width="medium")
 
 
@@ -137,8 +137,7 @@ def _(
         policy = np.zeros(shape=(len(actions), state_space_size), dtype=np.float64)
         delta = 0
         for s in range(state_space_size):
-            r = math.floor(s / size[0])
-            c = s % size[1]
+            r, c = divmod(s, size[1])
 
             max_q = -float("inf")
             best_a = None
@@ -151,9 +150,12 @@ def _(
                     # bounce back
                     next_r = r
                     next_c = c
-                next_s = next_r * size[0] + next_c
+                next_s = next_r * size[1] + next_c
                 v_next_state = v[next_s].item()  # use v_{k}, not v_{k+1}
-                q[s, a] = reward_probability * immediate_reward + discount_rate * state_transition_probability * v_next_state
+                q[s, a] = (
+                    reward_probability * immediate_reward
+                    + discount_rate * state_transition_probability * v_next_state
+                )
 
                 if q[s, a] > max_q:
                     max_q = q[s, a].item()

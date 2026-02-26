@@ -14,7 +14,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Sarsa Algorithm
+    # Q-Learning (off-policy)
     """)
     return
 
@@ -48,7 +48,6 @@ def _():
     convergence_threshold: float = 1e-4
     discount_rate: float = 0.9
     alpha: float = 0.05  # learning rate
-    epsilon = 0.1  # 0.1 = 10% random actions
 
     # Initialize reward
     reward_boundary = -10.0
@@ -89,7 +88,6 @@ def _():
         alpha,
         calculate_reward,
         discount_rate,
-        epsilon,
         goal,
         is_out_of_bounds,
         np,
@@ -111,7 +109,6 @@ def _(
     alpha: float,
     calculate_reward,
     discount_rate: float,
-    epsilon,
     goal: "Tuple[int, int]",
     is_out_of_bounds,
     np,
@@ -130,8 +127,8 @@ def _(
     actions_len = len(actions)
     q = np.zeros(shape=(state_space_size, actions_len), dtype=np.float64)
 
-    # Initialize policy (equal probability for all actions initially)
-    policy = np.full(
+    # Initialize policies (equal probability for all actions initially)
+    target_policy = np.full(
         shape=(actions_len, state_space_size), fill_value=1.0 / actions_len, dtype=np.float64
     )
 
@@ -143,61 +140,49 @@ def _(
     for episode in range(num_episodes):
         s = 0
 
-        a = np.random.choice(actions_len, p=policy[:, s])
-
         episode_length = 0
         total_reward = 0
         while True:
             r, c = divmod(s, size[1])
-
             if (r, c) == goal:
                 break
 
+            a = np.random.choice(actions_len)
             move = actions[a]
-            next_r: int = r + move[0]
-            next_c: int = c + move[1]
+            next_r = r + move[0]
+            next_c = c + move[1]
             reward = calculate_reward(next_r, next_c)
             total_reward += reward
 
             if is_out_of_bounds(next_r, next_c):
-                # bounce back
                 next_r = r
                 next_c = c
 
             next_s = math.floor(next_r * size[1] + next_c)
 
-            # 3. SAMPLE next action based on probabilities
-            # If
-            next_a = np.random.choice(actions_len, p=policy[:, next_s])
+            q[s, a] = q[s, a] - alpha * (q[s, a] - (reward + discount_rate * np.max(q[next_s, :])))
 
-            # SARSA Q-table update (In-place)
-            q[s, a] = q[s, a] - alpha * (q[s, a] - (reward + discount_rate * q[next_s, next_a]))
-
-            # Epsilon-greedy policy update (In-place)
+            # update target policy
             best_a = np.argmax(q[s, :])
             for a_idx in range(actions_len):
                 if a_idx == best_a:
-                    # Simplified your math here slightly, does the exact same thing
-                    policy[a_idx, s] = 1.0 - epsilon + (epsilon / actions_len)
+                    target_policy[a_idx, s] = 1
                 else:
-                    policy[a_idx, s] = epsilon / actions_len
+                    target_policy[a_idx, s] = 0
 
-            # Move to next state/action
             s = next_s
-            a = next_a
             episode_length += 1
 
-        # Print progress occasionally
         print(f"Episode {episode + 1} completed")
         episode_lengths[episode] = episode_length
         rewards[episode] = total_reward
 
     print("Training finished!")
-    return episode_lengths, policy, rewards
+    return episode_lengths, rewards, target_policy
 
 
 @app.cell
-def _(np, policy):
+def _(np, target_policy):
     move_symbols = ["↑", "→", "↓", "←", "∘"]
 
 
@@ -211,7 +196,7 @@ def _(np, policy):
             print("")
 
 
-    best_move_according_to_policy = np.argmax(policy, axis=0)
+    best_move_according_to_policy = np.argmax(target_policy, axis=0)
     print_best_move_on_grid(best_move_according_to_policy)
     return
 
@@ -232,7 +217,7 @@ def _(episode_lengths):
         ax.plot(episode_lengths, color="#1f77b4", alpha=0.8, linewidth=1.5)
 
         # Add labels and a title
-        ax.set_title("SARSA Agent Training Progress", fontsize=14)
+        ax.set_title("Q-Learning Agent Training Progress", fontsize=14)
         ax.set_xlabel("Episode index", fontsize=12)
         ax.set_ylabel("Episode length", fontsize=12)
 
@@ -271,7 +256,7 @@ def _(episode_lengths, np, plt):
         )
 
         # Add labels, title, and legend
-        ax.set_title("SARSA Agent Training Progress", fontsize=14, pad=15)
+        ax.set_title("Q-Learning Agent Training Progress", fontsize=14)
         ax.set_xlabel("Episode index", fontsize=12)
         ax.set_ylabel("Episode length", fontsize=12)
         ax.legend(loc="upper right", fontsize=10)
@@ -301,7 +286,7 @@ def _(plt, rewards):
         ax.plot(rewards, color="#1f77b4", alpha=0.8, linewidth=1.5)
 
         # Add labels and a title
-        ax.set_title("SARSA Agent Training Rewards", fontsize=14)
+        ax.set_title("Q-Learning Agent Training Rewards", fontsize=14)
         ax.set_xlabel("Episode index", fontsize=12)
         ax.set_ylabel("Total rewards", fontsize=12)
 
@@ -341,7 +326,7 @@ def _(np, plt, rewards):
         )
 
         # Add labels, title, and legend
-        ax.set_title("SARSA Agent Training Rewards", fontsize=14)
+        ax.set_title("Q-Learning Agent Training Rewards", fontsize=14)
         ax.set_xlabel("Episode index", fontsize=12)
         ax.set_ylabel("Total rewards", fontsize=12)
         ax.legend(loc="upper right", fontsize=10)

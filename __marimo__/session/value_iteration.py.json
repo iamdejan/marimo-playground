@@ -1,7 +1,7 @@
 {
   "version": "1",
   "metadata": {
-    "marimo_version": "0.19.11"
+    "marimo_version": "0.20.2"
   },
   "cells": [
     {
@@ -71,7 +71,7 @@
     },
     {
       "id": "PKri",
-      "code_hash": "c7a304532a593e18004d21846c3e3962",
+      "code_hash": "70b5d776d5e8bc6587364714d1b7a395",
       "outputs": [
         {
           "type": "data",
