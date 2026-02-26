@@ -197,7 +197,7 @@ def _(
 
 
 @app.cell
-def _(np, policy):
+def _(goal: "Tuple[int, int]", np, policy, size):
     move_symbols = ["↑", "→", "↓", "←", "∘"]
 
 
@@ -205,8 +205,11 @@ def _(np, policy):
         i = 0
         while i < len(best_move_according_to_policy):
             for w in range(5):
-                best_move_index = best_move_according_to_policy[i]
-                print(move_symbols[best_move_index], end="\t")
+                if divmod(i, size[1]) == goal:
+                    print("G", end="\t")
+                else:
+                    best_move_index = best_move_according_to_policy[i]
+                    print(move_symbols[best_move_index], end="\t")
                 i += 1
             print("")
 

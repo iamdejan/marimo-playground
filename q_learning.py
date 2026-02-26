@@ -49,6 +49,11 @@ def _():
     discount_rate: float = 0.9
     alpha: float = 0.05  # learning rate
 
+    # Epsilon
+    epsilon = 1.0
+    min_epsilon = 0.05
+    decay_rate = 0.0005
+
     # Initialize reward
     reward_boundary = -10.0
     reward_forbidden = -10.0
@@ -88,6 +93,7 @@ def _():
         alpha,
         calculate_reward,
         discount_rate,
+        epsilon,
         goal,
         is_out_of_bounds,
         np,
@@ -109,6 +115,7 @@ def _(
     alpha: float,
     calculate_reward,
     discount_rate: float,
+    epsilon,
     goal: "Tuple[int, int]",
     is_out_of_bounds,
     np,
@@ -119,9 +126,7 @@ def _(
     seed = 1772030114
     np.random.seed(seed)
 
-    # Initialize value state
-    v = np.zeros(shape=(size[0] * size[1],), dtype=np.float64)
-    state_space_size = len(v)
+    state_space_size = size[0] * size[1]
 
     # Initialize q-table
     actions_len = len(actions)
@@ -147,7 +152,10 @@ def _(
             if (r, c) == goal:
                 break
 
-            a = np.random.choice(actions_len)
+            if np.random.rand() < epsilon:
+                a = np.random.choice(actions_len)
+            else:
+                a = np.argmax(q[s, :])
             move = actions[a]
             next_r = r + move[0]
             next_c = c + move[1]
@@ -182,7 +190,7 @@ def _(
 
 
 @app.cell
-def _(np, target_policy):
+def _(goal: "Tuple[int, int]", np, size, target_policy):
     move_symbols = ["↑", "→", "↓", "←", "∘"]
 
 
@@ -190,8 +198,11 @@ def _(np, target_policy):
         i = 0
         while i < len(best_move_according_to_policy):
             for w in range(5):
-                best_move_index = best_move_according_to_policy[i]
-                print(move_symbols[best_move_index], end="\t")
+                if divmod(i, size[1]) == goal:
+                    print("G", end="\t")
+                else:
+                    best_move_index = best_move_according_to_policy[i]
+                    print(move_symbols[best_move_index], end="\t")
                 i += 1
             print("")
 

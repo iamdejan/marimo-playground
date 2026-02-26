@@ -91,7 +91,7 @@
     },
     {
       "id": "SFPL",
-      "code_hash": "d60373f70f0912a48d11b55575fd403b",
+      "code_hash": "1a52eb85c63f5e83505a4e2e746d5d14",
       "outputs": [
         {
           "type": "data",
@@ -104,7 +104,7 @@
         {
           "type": "stream",
           "name": "stdout",
-          "text": "\u2192\t\u2192\t\u2192\t\u2193\t\u2193\t\n\u2191\t\u2190\t\u2193\t\u2193\t\u2193\t\n\u2193\t\u2218\t\u2193\t\u2192\t\u2193\t\n\u2218\t\u2192\t\u2191\t\u2190\t\u2193\t\n\u2218\t\u2192\t\u2191\t\u2190\t\u2190\t\n",
+          "text": "\u2192\t\u2192\t\u2192\t\u2193\t\u2193\t\n\u2191\t\u2190\t\u2193\t\u2193\t\u2193\t\n\u2193\t\u2218\t\u2193\t\u2192\t\u2193\t\n\u2218\t\u2192\tG\t\u2190\t\u2193\t\n\u2218\t\u2192\t\u2191\t\u2190\t\u2190\t\n",
           "mimetype": "text/plain"
         }
       ]
