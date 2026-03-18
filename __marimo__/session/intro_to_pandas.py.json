@@ -1,0 +1,518 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.20.4",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ENdF",
+      "code_hash": "43581a32d8e0486b52c537d99754d6da",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"intro-to-pandas\">Intro to pandas</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "YWOV",
+      "code_hash": "c1b7b1d18b5ff786fb8c4d2ef4e0138a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "tqWV",
+      "code_hash": "3781307f11a8bf5f6815aa697c26c1a5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"basic-concepts\">Basic Concepts</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BBHT",
+      "code_hash": "537a03fac0a2fbd7f886cf524d08a271",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">The primary data structures in <em>pandas</em> are implemented as two classes:</span>\n<ul>\n<li><strong><code>DataFrame</code></strong>, which you can imagine as a relational data table, with rows and named columns.</li>\n<li><strong><code>Series</code></strong>, which is a single column. A <code>DataFrame</code> contains one or more <code>Series</code> and a name for each <code>Series</code>.</li>\n</ul>\n<span class=\"paragraph\">The data frame is a commonly used abstraction for data manipulation. Similar implementations exist in <a href=\"https://spark.apache.org/\" rel=\"noopener noreferrer\" target=\"_blank\">Spark</a> and <a href=\"https://www.r-project.org/about.html\" rel=\"noopener noreferrer\" target=\"_blank\">R</a>.</span>\n<span class=\"paragraph\">One way to create a <code>Series</code> is to construct a <code>Series</code> object. For example:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Iipu",
+      "code_hash": "7ef5c005d37e5e2850784e535ccbec37",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Iipu-0' random-id='6253bbd9-a2c9-5938-fc96-0f22799cdf2b'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469},{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;,&#92;&quot;Population&#92;&quot;:1015785},{&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;,&#92;&quot;Population&#92;&quot;:485199}]&quot;' data-total-rows='3' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "tDuS",
+      "code_hash": "2ffa52c986ccae0ec652a7f7b94bced1",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">But most of the time, you load an entire file into a <code>DataFrame</code>. The following example loads a file with California housing data. Run the following cell to load the data and create feature definitions:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ddLi",
+      "code_hash": "ebb5e4df4e61f662c794cd758523bd7b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ddLi-0' random-id='a5612841-0c5c-3cb6-51ef-776b07612296'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;count&#92;&quot;,&#92;&quot;longitude&#92;&quot;:17000.0,&#92;&quot;latitude&#92;&quot;:17000.0,&#92;&quot;housing_median_age&#92;&quot;:17000.0,&#92;&quot;total_rooms&#92;&quot;:17000.0,&#92;&quot;total_bedrooms&#92;&quot;:17000.0,&#92;&quot;population&#92;&quot;:17000.0,&#92;&quot;households&#92;&quot;:17000.0,&#92;&quot;median_income&#92;&quot;:17000.0,&#92;&quot;median_house_value&#92;&quot;:17000.0},{&#92;&quot;&#92;&quot;:&#92;&quot;mean&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-119.5621082352941,&#92;&quot;latitude&#92;&quot;:35.62522470588235,&#92;&quot;housing_median_age&#92;&quot;:28.58935294117647,&#92;&quot;total_rooms&#92;&quot;:2643.664411764706,&#92;&quot;total_bedrooms&#92;&quot;:539.4108235294118,&#92;&quot;population&#92;&quot;:1429.5739411764705,&#92;&quot;households&#92;&quot;:501.2219411764706,&#92;&quot;median_income&#92;&quot;:3.8835781,&#92;&quot;median_house_value&#92;&quot;:207300.91235294117},{&#92;&quot;&#92;&quot;:&#92;&quot;std&#92;&quot;,&#92;&quot;longitude&#92;&quot;:2.0051664084261778,&#92;&quot;latitude&#92;&quot;:2.137339794657084,&#92;&quot;housing_median_age&#92;&quot;:12.586936981660399,&#92;&quot;total_rooms&#92;&quot;:2179.9470714527674,&#92;&quot;total_bedrooms&#92;&quot;:421.4994515798646,&#92;&quot;population&#92;&quot;:1147.8529591595266,&#92;&quot;households&#92;&quot;:384.5208408559009,&#92;&quot;median_income&#92;&quot;:1.9081565183791036,&#92;&quot;median_house_value&#92;&quot;:115983.76438720885},{&#92;&quot;&#92;&quot;:&#92;&quot;min&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-124.35,&#92;&quot;latitude&#92;&quot;:32.54,&#92;&quot;housing_median_age&#92;&quot;:1.0,&#92;&quot;total_rooms&#92;&quot;:2.0,&#92;&quot;total_bedrooms&#92;&quot;:1.0,&#92;&quot;population&#92;&quot;:3.0,&#92;&quot;households&#92;&quot;:1.0,&#92;&quot;median_income&#92;&quot;:0.4999,&#92;&quot;median_house_value&#92;&quot;:14999.0},{&#92;&quot;&#92;&quot;:&#92;&quot;25%&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-121.79,&#92;&quot;latitude&#92;&quot;:33.93,&#92;&quot;housing_median_age&#92;&quot;:18.0,&#92;&quot;total_rooms&#92;&quot;:1462.0,&#92;&quot;total_bedrooms&#92;&quot;:297.0,&#92;&quot;population&#92;&quot;:790.0,&#92;&quot;households&#92;&quot;:282.0,&#92;&quot;median_income&#92;&quot;:2.566375,&#92;&quot;median_house_value&#92;&quot;:119400.0},{&#92;&quot;&#92;&quot;:&#92;&quot;50%&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-118.49,&#92;&quot;latitude&#92;&quot;:34.25,&#92;&quot;housing_median_age&#92;&quot;:29.0,&#92;&quot;total_rooms&#92;&quot;:2127.0,&#92;&quot;total_bedrooms&#92;&quot;:434.0,&#92;&quot;population&#92;&quot;:1167.0,&#92;&quot;households&#92;&quot;:409.0,&#92;&quot;median_income&#92;&quot;:3.5446,&#92;&quot;median_house_value&#92;&quot;:180400.0},{&#92;&quot;&#92;&quot;:&#92;&quot;75%&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-118.0,&#92;&quot;latitude&#92;&quot;:37.72,&#92;&quot;housing_median_age&#92;&quot;:37.0,&#92;&quot;total_rooms&#92;&quot;:3151.25,&#92;&quot;total_bedrooms&#92;&quot;:648.25,&#92;&quot;population&#92;&quot;:1721.0,&#92;&quot;households&#92;&quot;:605.25,&#92;&quot;median_income&#92;&quot;:4.767,&#92;&quot;median_house_value&#92;&quot;:265000.0},{&#92;&quot;&#92;&quot;:&#92;&quot;max&#92;&quot;,&#92;&quot;longitude&#92;&quot;:-114.31,&#92;&quot;latitude&#92;&quot;:41.95,&#92;&quot;housing_median_age&#92;&quot;:52.0,&#92;&quot;total_rooms&#92;&quot;:37937.0,&#92;&quot;total_bedrooms&#92;&quot;:6445.0,&#92;&quot;population&#92;&quot;:35682.0,&#92;&quot;households&#92;&quot;:6082.0,&#92;&quot;median_income&#92;&quot;:15.0001,&#92;&quot;median_house_value&#92;&quot;:500001.0}]&quot;' data-total-rows='8' data-total-columns='9' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;longitude&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;latitude&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;housing_median_age&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;total_rooms&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;total_bedrooms&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;population&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;households&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;median_income&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;median_house_value&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "alYf",
+      "code_hash": "9cd609cacc2add8c81e975efc39cce11",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">The example above used <code>DataFrame.describe</code> to show interesting statistics about a <code>DataFrame</code>. Another useful function is <code>DataFrame.head</code>, which displays the first few records of a <code>DataFrame</code>:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "xoba",
+      "code_hash": "22bf81d90adaa907157c0939bf5c08a4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='xoba-0' random-id='032ccf0c-c106-2740-a00c-54249f741be8'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;longitude&#92;&quot;:-114.31,&#92;&quot;latitude&#92;&quot;:34.19,&#92;&quot;housing_median_age&#92;&quot;:15.0,&#92;&quot;total_rooms&#92;&quot;:5612.0,&#92;&quot;total_bedrooms&#92;&quot;:1283.0,&#92;&quot;population&#92;&quot;:1015.0,&#92;&quot;households&#92;&quot;:472.0,&#92;&quot;median_income&#92;&quot;:1.4936,&#92;&quot;median_house_value&#92;&quot;:66900.0},{&#92;&quot;longitude&#92;&quot;:-114.47,&#92;&quot;latitude&#92;&quot;:34.4,&#92;&quot;housing_median_age&#92;&quot;:19.0,&#92;&quot;total_rooms&#92;&quot;:7650.0,&#92;&quot;total_bedrooms&#92;&quot;:1901.0,&#92;&quot;population&#92;&quot;:1129.0,&#92;&quot;households&#92;&quot;:463.0,&#92;&quot;median_income&#92;&quot;:1.82,&#92;&quot;median_house_value&#92;&quot;:80100.0},{&#92;&quot;longitude&#92;&quot;:-114.56,&#92;&quot;latitude&#92;&quot;:33.69,&#92;&quot;housing_median_age&#92;&quot;:17.0,&#92;&quot;total_rooms&#92;&quot;:720.0,&#92;&quot;total_bedrooms&#92;&quot;:174.0,&#92;&quot;population&#92;&quot;:333.0,&#92;&quot;households&#92;&quot;:117.0,&#92;&quot;median_income&#92;&quot;:1.6509,&#92;&quot;median_house_value&#92;&quot;:85700.0},{&#92;&quot;longitude&#92;&quot;:-114.57,&#92;&quot;latitude&#92;&quot;:33.64,&#92;&quot;housing_median_age&#92;&quot;:14.0,&#92;&quot;total_rooms&#92;&quot;:1501.0,&#92;&quot;total_bedrooms&#92;&quot;:337.0,&#92;&quot;population&#92;&quot;:515.0,&#92;&quot;households&#92;&quot;:226.0,&#92;&quot;median_income&#92;&quot;:3.1917,&#92;&quot;median_house_value&#92;&quot;:73400.0},{&#92;&quot;longitude&#92;&quot;:-114.57,&#92;&quot;latitude&#92;&quot;:33.57,&#92;&quot;housing_median_age&#92;&quot;:20.0,&#92;&quot;total_rooms&#92;&quot;:1454.0,&#92;&quot;total_bedrooms&#92;&quot;:326.0,&#92;&quot;population&#92;&quot;:624.0,&#92;&quot;households&#92;&quot;:262.0,&#92;&quot;median_income&#92;&quot;:1.925,&#92;&quot;median_house_value&#92;&quot;:65500.0}]&quot;' data-total-rows='5' data-total-columns='9' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;longitude&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;latitude&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;housing_median_age&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;total_rooms&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;total_bedrooms&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;population&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;households&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;median_income&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;median_house_value&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MkZF",
+      "code_hash": "fbf33b0a31b28ea5dd3a7c13b912cf99",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Another powerful feature of <em>pandas</em> is graphing. For example, <code>DataFrame.hist</code> lets you quickly study the distribution of values in a column:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lsKw",
+      "code_hash": "a21dc34cfcb8cd7e54dd02282420dc99",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "streamMedia",
+          "name": "media",
+          "mimetype": "application/vnd.marimo+mimebundle",
+          "data": "{\"image/png\": \"data:image/png;base64,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E6sFNDlVA5qqCu+Pj9t2221Xu50WLVpkQ4zixLyFj8lN7BsDnjU5ltWVe55S3n333fz28uXLs0tDKaxOqlqpBOVAH6bc6cOUO32YcqcPU87037XXEJ+3k4QwcdnmOGluKWPGjAmHH354pdvefPPN/HbXrl1rXYWp2OMKr8cql4033rjWdmIIE5fQjisgtWrVKh+M5IY5rc2x1EXh42sT59Hp1KlTSKHYnD1QTvRhyp0+TLnThyl3+jDlTP9dM3E157KvhCm06667hokTJ4ZvfOMb1e779NNP89txCema5IYR5apWirVTWxvF2smFMPV1LAAAAEDTlSSEiasgxTlXcuU8ixYtCrfeemu24lCsgImrGg0ZMqRk6VTLli1rbD8XluTaL9ZObW3U1E59HUtd1FY9E4cj9e3bN9uOy2rXVpmzNuLrziWm8blat27dYM8FDUEfptzpw5Q7fZhypw9TzvTftVfbdCGNNoSJw4AKhwL16dMnHHbYYeH666/PViw64IADwpQpUyqtOlT4gX/FihU1th+HDuVUXcY6105tbdTUTn0dS12sTqgS21+T51gT8Rykei5oCPow5U4fptzpw5Q7fZhypv+umYb4DLxOV0c64ogjwtChQ8NXX30VRo8eHT7++OP8fRtttFGdh/V8/vnnJYcL5dqpy9CgUu3U17EAAAAATdc6DWGiWAWTCy/uu+++ohUhtZUAFQ7hqTqxba6d2P6SJUvq1E7nzp0rDSuqr2MBAAAAmq51HsLEwCPn73//e357p512ym/PmzevxjYK7+/Vq1el++razqpVq7K5aoq1EStacoHK2hwLAAAA0HSt8xDm7bffLjp8Z9tttw1dunTJth955JEa28hNHrvVVluFbt26Vbpvr732ym/X1M4zzzyTH0q05557Vrs/1878+fPDe++9V7Kdwuco1g4AAADQNK3zEOa2227Lb3/961/Pbzdr1iw/VClWl8yZM6fo4+PtueqTuH98XKGBAweGjh07ZtvXXXddqKioKNrO1KlT89sHHXRQ0RWeiu1baNmyZdmqT7kKnJ49exbdDwAAAGh6GiyEiUFF4dLOxVx66aXh3nvvzbZjBUth1Up00kknhRYt/rWA0/HHH19tyed4Pd4exf3i/lXFJaVPOOGEbHvu3Llh/Pjx1faZPXt2tjpTNGDAgGz1pqpiMNO9e/dse9y4cfmhS4XGjh2bn1w4bgMAAAA0eAjz85//PBseNGrUqPC73/0uzJo1K/z1r38Njz/+eLjqqquywOUnP/lJPii5+uqr84FLTqwkGTNmTH64UBzec8stt2Tb8We8Hrdzocf2229f9FjifbmqlFNOOSUcffTRYebMmVkVTQxU9tlnn2xOmLj81IQJE4q2seGGG4bLL788NG/ePHzyySfZc//6178OTz31VHjggQfCD3/4w3DllVdm+8bXFld+AgAAAMipnHrUs3/84x9ZuBIvpcSVh6655prw3e9+t+j95513Xvjggw+yfZ5//vlw2GGHVdtnxIgR4dxzzy35HHGJ6enTp4dBgwaFBQsWhEmTJmWXQh06dAg33nhj2HXXXUu2Ex8/ceLEbDnt999/P1+FU6hv375h2rRpYYMNNijZDgAAAND0NFgIM2PGjPDnP/85qziJw4BiaPHRRx+F1q1bhy222CILO4YMGRIOPfTQ0LZt25LtxMqTOFTokEMOyYKTp59+OixevDh06tQpGzYUq1r222+/Wo+nR48eWYjzm9/8JpuHZuHChWHFihXZqkcxXDnxxBPDNttsU2s7I0eODP369cuqYuJrfOedd0K7du2ylZAOP/zw8D//8z/VKnoAAAAAGiwtiPOnxEsMSepDDEriZW3EsCQOR4qXtbHzzjtXq6QBAAAAaNSrIwEAAAA0BcbNAACwXul26vR1fQhNwusXDF7XhwBQdlTCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAADlHsI899xz4fzzzw/77bdf2HrrrUOrVq1C+/btQ8+ePcPw4cPDY489VmsbU6dODc2aNavTJe5bm2XLloWLL7449O3bN2y66abZ8fTq1SuMGTMmvPHGG3V+bS+99FI45phjQo8ePUKbNm1C586dQ//+/cNvf/vbsGrVqjq3AwAAADQNLRqq4QEDBoRHH3202u0rVqwICxYsyC7XXXddOOKII8LkyZNDy5YtQ0NbtGhRGDx4cJg/f36l2+fNm5dd4nHcdNNNYdCgQTW2M2XKlHDccceFL7/8Mn/bF198kYVK8RLDoHvuuSdsttlmDfZaAAAAgPLSYCHM22+/nf3s0qVLGDp0aPjWt74V/u3f/i3885//DLNnzw6XXHJJts/111+fVY7E8KM2DzzwQNZeKV27di1532effRaGDBmSD2BGjhwZDjvssKyKZebMmWHcuHFh6dKl2bHG49tll11KHsOoUaPCV199FbbYYotw+umnh2984xvhH//4R7j66qvDnXfeGebMmRMOPvjgrN3mzY34AgAAABowhNlxxx2zoUiHHHJI2GCDDSrdt8cee2QVMHvuuWd45ZVXws033xyOPfbYLKipSRzG1K1btzU6nvHjx2fVLtFFF10Uxo4dm7+vX79+Ye+9986GE8XhSieddFJ46KGHqrURw6LRo0dnAUyHDh3CrFmzQvfu3fP377vvvlmFzJVXXplVAd1www3hyCOPXKPjBQAAANYvDVamEYfjHHroodUCmJxOnTpl1TA5t99+e0MdSli5cmW47LLLsu04/8vJJ59cbZ8YxIwYMSLbjhUszz77bLV9pk2bFhYuXJhtn3baaZUCmJw438wmm2yS3wYAAACI1ulYmYEDB1aar6WhPPzww2HJkiXZ9rBhw0oOEYqTBefEYUVV3XXXXUX3LdS2bdssfIpefPHFbO4bAAAAgHUawsRJenMacu6UwlWY4oTBpfTu3Tu0a9cu23788cdLtrPDDjuELbfcsmQ7hc9RrB0AAACg6VmnIcwjjzxSaQ6Z2sTqkzgZblxJKQ5ninPLnHHGGflJgEuZO3dunZ6nRYsW+SFGhY/JTez71ltv1elYC++v2g4AAADQNDXYxLy1iZPbXnDBBfnruSE8dQ1tPvroo+zy5JNPZnPLTJgwIRx99NFFH/fmm29mP2OVy8Ybb1zjc2y99dbhhRdeCB9++GG2BHWrVq2y22MAU1FRUesqTLk2qj53XeWCnlLefffd/Pby5cuzS0OJy24X24ZyoQ9T7vRhyt266sMdW/7r32w0rIb8d2hj4X2Ycqb/Ns73uXUWwlx66aXhqaeeyrYPOuigbChQKdttt1225HOcPDcXcLz66qvhjjvuyCb0jZ3rmGOOCc2aNcuWj67q008/zX62b9++1uPKDUfKVb/kQphcG3Vpp2obq6MwwKlNXIEpVgSlEJ8Lypk+TLnThyl3KfvwL3ZP9lRN2oMPPhiaEu/DlDP9d80sXrw4rBchTKxoOfXUU7PtzTffPFx11VUl940BTZxMNwYshfr06RP+4z/+I1uFKQY0cQWkH//4x2H//fevNl9LLgGMw5hqkwtdqqZehSlibe2UagMAAABoupKHMC+99FIWrKxatSoLK2699dZsnpdSOnbsWGN7Q4YMCWeffXY2N8yyZcvClClTwumnn15pn9atW1ebCLiUOAQpp02bNtXaqEs7pdqoi9qGL8XhSH379s22+/fvX+vQqLURg6dcYhqfq/AcQDnQhyl3+jDlbl314T3GzUjyPE3dnNO+E9Z33ocpZ/rv2qttupBGH8K89tprYZ999gkff/xx2GCDDcLNN99c42pFdTVy5Mhw5plnZnO2xCqbqiHMRhttVOehQZ9//nnRYUe5NurSTqk26mJ1QpUY8KxuyLOm4j+aUj0XNAR9mHKnD1PuUvbhpSsqV1DTMJravw29D1PO9N/G8z6XbHWkd955J3z3u9/NfsahRddcc01WEVMf4pCm3NwoxVZKygUbMRxZsmRJnSpROnfuXGlYUWE4UlsaVljNsjpzvAAAAADrr+apJrP53ve+l02mG11xxRXhyCOPrNfnyK1cVMxOO+2U3543b17J/eIQqUWLFmXbvXr1qnRfrGjJBSo1tVH1/qrtAAAAAE1Tg4cwS5cuDd///vfDyy+/nF2Py1Ifd9xx9focH3zwQbZcddSlS5dq9++1115Fl7mu6plnnskPJdpzzz1LtjN//vzw3nvvlWyn8DmKtQMAAAA0PQ0awsSJcgcPHhyee+657Hqcq+WnP/1pvT/PpEmT8pUwxeaYGThwYH6C3+uuu65k1czUqVPz28WGSh144IFF9636muNkw7kKnJ49e6726wEAAADWPw0WwsQVhGKQMWvWrOz6iSeeGM4999zVauP1118Pzz//fI37xCWqf/nLX+YnGzrqqKOq7ROXlD7hhBOy7blz54bx48dX22f27NnZykq5ICcugV1VfD3du3fPtseNG5cfulRo7Nix2cTDuW0AAACABl0d6Uc/+lF48MEHs+1vf/vbYcSIEeHFF18suX8MSqpWjcQQZu+99w79+vULP/jBD8Kuu+6aTcIbK1ni/DK33357dslVtsRwZauttirafgxEbrnllvDKK6+EU045JSxcuDAcdthh2WzHM2fODOeff342J0y8PmHChKJtbLjhhuHyyy/PjuWTTz7JhhrFpbHjktExeLn66qvDHXfckR+6dMQRR6zx+QMAAADWLw0Wwtx555357YceeijssssuNe6/zTbbZKFLMbFKJV5Kadu2bbj00kvDqFGjSu4Tl5iePn16GDRoUFiwYEE2hCleCnXo0CHceOONWdhTSnz8xIkTw+jRo8P7778fjj/++Gr7xFBm2rRp2TLcAAAAAA0awtSH3XffPdxwww1ZABMnzX333XezlZZixcomm2wS/v3f/z185zvfCf/zP/+TVcjUpkePHtnwpt/85jfhtttuy6ph4rCpuOpRDFfikKkYBtVm5MiRWXVOrIqZMWNGtux2u3btspWQDj/88Ox4WrRo1KcWAAAASKzBkoKaloyuq1i9EkONeKkvMSyJw5HiZW3svPPO1SppAAAAANbZEtUAAAAACGEAAAAAklAJAwAAAJCAEAYAAAAgASEMAAAAQAJCGAAAAIAEhDAAAAAACQhh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HEttCh9bmzj5b5xbJ4Viy41DOdGHy9cvdl/XR9A4jNnFinvrgwcffDA0VSnfh71vpNHU+rN/S1DO9N81s3jx4rDeDEeKE+7GZaajgw46KBsKVNWnn36a345LSNckN4woV7VSrJ3a2qipnfo6FgAAAKBparGuhiGdeuqp2fbmm28errrqqlrLp1q2bFljm7mKlWIlQ7l2amujpnbq61hqU1vlTByO1Ldv32w7LqldW1XO2oivOZeYxudq3bp1gz0XNAR9eP2wx7gZoamKQ5ByFTDjX2gePlnZbF0fEmtpzmnfaVLncF29Dzfl942UmkJ/9m8Jypn+u/Zqmy6kLEKYl156Kat8ictJx7Di1ltvDVtssUXRfQv/R104iW8xcehQTtVlrHPt1NZGTe3U17HUZnVCldj26ra/puLrT/Vc0BD04fK1dIXgIYoBjHNR/pry/0tTvg/7W0mjqfVn/5agnOm/jed9LulwpLja0T777BM+/vjjsMEGG4Sbb765xtWKNtpoozoP6/n8889LDhfKtVOXoUGl2qmvYwEAAACapmQhzDvvvBO++93vZj+bNWsWrrnmmqwipq5VIbWVARUO46k6uW2unRiOLFmypE7tdO7cudKwovo6FgAAAKBpap5qRuHvfe974dVXX82uX3HFFeHII4+s9XE77bRTfnvevHk17lt4f69evdaonThEatGiRUXbiBUtuUBlbY4FAAAAaJoaPIRZunRp+P73vx9efvnl7Hpclvq4446r02O33Xbb0KVLl/xkvjXJTfq21VZbhW7dulW6b6+99spv19TOM888kx9KtOeee1a7P9fO/Pnzw3vvvVeyncLnKNYOAAAA0PQ0aAizbNmyMHjw4PDcc89l108//fTw05/+tM6Pj8OWDjjggHx1yZw5c4ruF2/PVZ/E/ePjCg0cODB07Ngx277uuutCRUVF0XamTp2a3y42VOrAAw8sum/V1xwnG85V4PTs2bPW1wkAAACs/xoshIkrCMUgY9asWdn1E088MZx77rmr3c5JJ50UWrT41yJOxx9/fLUln+P1eHsU94v7VxWXlD7hhBOy7blz54bx48dX22f27NlhypQp2XacLLhPnz7V9omvp3v37tn2uHHj8kOXCo0dOzabeDi3DQAAAJDlFg11Gn70ox+FBx98MNv+9re/HUaMGBFefPHFkvvHoKRY1Ui8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AAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAkIAQBgAAACABIQwAAABAAkIYAAAAgASEMAAAAAAJCGEAAAAAEhDCAAAAACQghAEAAABIQAgDAAAAUO4hzAcffBDuueeecNZZZ4X99tsvdOrUKTRr1iy7DB8+fLXbu//++8PBBx8cunbtGlq1apX9jNfj7XW1bNmycPHFF4e+ffuGTTfdNLRv3z706tUrjBkzJrzxxht1buell14KxxxzTOjRo0do06ZN6Ny5c+jfv3/47W9/G1atWrXarw0AAABYv7VoyMa32GKLemmnoqIiCzwmTZpU6fa33347TJs2LbuMGjUqTJw4MQt4Slm0aFEYPHhwmD9/fqXb582bl10mT54cbrrppjBo0KAaj2fKlCnhuOOOC19++WX+ti+++CI89thj2WXq1KlZ+LTZZput8WsGAAAA1i/JhiNtvfXWYZ999lmjx55xxhn5AGa33XYLN998c3jqqaeyn/F6FO8/88wzS7bx2WefhSFDhuQDmJEjR4YZM2aEJ554Ipx33nlZRczSpUvD0KFDwwsvvFCynQceeCALfGIAE0Omyy+/PDz55JPhvvvuy6pyojlz5mTbX3311Rq9XgAAAGD906CVMHEYUp8+fbJLDCxef/31sO22265WGwsXLgwXXXRRtt27d+/w6KOPZsN/otju/vvvHwYMGBCeeeaZcOGFF4ajjjoqdO/evVo748ePz6pdotje2LFj8/f169cv7L333tlwojhc6aSTTgoPPfRQ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gBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABIQwAAAAAAkIYQAAAAASEMIAAAAAJCCEAQAAAEhACAMAAACQgBAGAAAAIAEhDAAAAEACQhgAAACABFqkeBKIup063YkAAACgyVIJAwAAAJCAEAYAAAAgASEMAAAAQAJCGAAAAIAEhDAAAAAACQhhAAAAABIQwgAAAAAkIIQBAAAASEAIAwAAAJCAEAYAAAAggbIIYZo1a1any8CBA2tt6/777w8HH3xw6Nq1a2jVqlX2M16Pt9fVsmXLwsUXXxz69u0bNt1009C+ffvQq1evMGbMmPDGG2+s5asFAAAA1kctQhNRUVERjjnmmDBp0qRKt7/99tth2rRp2WXUqFFh4sSJWaBTyqJFi8LgwYPD/PnzK90+b9687DJ58uRw0003hUGDBjXYawEAAADKT1mFMMcee2z43//935L3t2vXruR9Z5xxRj6A2W233cIpp5wSunfvnoUqF110UXj++eez+zt37hzOPffcom189tlnYciQIfkAZuTIkeGwww4Lbdq0CTNnzgzjxo0LS5cuDUOHDg2zZ88Ou+yyy1q/ZgAAAGD9UFYhzOabbx523nnn1X7cwoULs6Al6t27d3j00Uez4CTq06dP2H///cOAAQPCM888Ey688MJw1FFHZQFNVePHj8+qXaLY3tixY/P39evXL+y9996hf//+2XClk046KTz00ENr8WoBAACA9UlZzAmzti699NKwatWq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xahRo2psL94f94P60L9//xr7W+5yxBFHVHz55Zf6L43On/70pzr14U6dOlXcf//9Jdvx/ktj85e//KWiRYsWlfrxzJkzS+6vD7Mu1eV9OF4GDBhQsg19eN1TCUMlf/3rX8Ohhx4ali5dmn1De95554UnnngizJgxI4wcOTLbZ/78+WHw4MHhs88+c/ZYZ2IlwT777LNGjz3jjDPCpEmTsu3ddtst3HzzzeGpp57KfsbrUbz/zDPPrNdjpul6++23s59dunQJJ554Yrj99tuzPjd79uzwq1/9Kmy11VbZ/ddff32tVV36L+vyfffII48Ml112Wbjzzjuz/jtr1qxwyy23hKFDh4YNNtggLF68OOy///7hhRdeKNqG/ktj8tVXX2X/vl21alVW0VUX+jCNwbHHHhv+9re/lbxce+21JR+rDzcC6zoFonEZOHBglp7GbwSeeOKJavdfdNFF+YT1nHPOWSfHSNN11llnVfzxj3+seO+997Lrr7322mpXwixYsCD/jVfv3r0rli1bVun+zz//PLs993ewcOHCBnktNC2DBw+uuOWWWypWrVpV9P4PP/ywomfPnvn+/OijjxbdT/9lXSnVdwtNmzYt34cPPvjgavfrvzQ2l156adZfd9xxx4rTTjut1koYfZh1LddHzz777DV6vD7cOKiEIe/pp5/Oj4EdMWJE6NevX7WzE8eCx3liogkTJoSVK1c6gyRzzjnnhCFDhoQttthijdu49NJLs2+8oiuuuCK0adOm0v1t27bNbo/ifrGfw9qKcxnFKsNYKVBMnN/okksuyV+PlTL6L41Jqb5b6MADDww77rhjtv3oo49Wu9/7L43Jm2++ma94veqqq7L5jWqjD1Pu9OHGQQhD3l133ZXfPuqoo4p3mObNs1Lk6OOPP67TxGXQWMQvEO6+++5sO35Q2GOPPYruF2/fYYcd8n8X//riARpW4SR6ixYtqna//ks5iJP5R1988UWl2/VfGpv//d//zYbWDxs2rE6TmOrDlDt9uPEQwpCXW5kj/gNq9913L3lm4qoIOY8//rgzSNl47bXX8nNzFPbjYnL3v/XWW+H1119Pcnw0bStWrKgUeFel/9LYzZ07N/zlL3/JtnMVMTn6L43JrbfemlUoxtU/L7744jo9Rh+m3OnDjYcQhkr/eIrispMtWrQoeWYK/2GVewyUg8L+WvUD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\", \"__metadata__\": {\"image/png\": {\"width\": 560, \"height\": 434}}}"
+        }
+      ]
+    },
+    {
+      "id": "OrXt",
+      "code_hash": "71e59d68038be7f2b8727fb323e01aac",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"accessing-data\">Accessing Data</h2>\n<span class=\"paragraph\">You can access <code>DataFrame</code> data using familiar Python dict/list operations:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vXlO",
+      "code_hash": "21e55f8c56a0aa44522e01c062989eb4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='vXlO-0' random-id='6dee5ea7-e0e3-d471-615e-9bff0933b1ad'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;},{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;},{&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'pandas.Series'>\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "AXdG",
+      "code_hash": "ef537d76da5c742ab452a36c28f10e95",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>&#x27;San Jose&#x27;</pre>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'str'>\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "hKFj",
+      "code_hash": "5fcb58d581ec5df880b7057b334627b0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='hKFj-0' random-id='564c899e-6327-b650-64ac-2d39447779dc'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469},{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;,&#92;&quot;Population&#92;&quot;:1015785}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'pandas.DataFrame'>\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "GXJg",
+      "code_hash": "adee93dada917f0fe73ed041557da94b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">In addition, <em>pandas</em> provides an extremely rich API for advanced <a href=\"http://pandas.pydata.org/pandas-docs/stable/indexing.html\" rel=\"noopener noreferrer\" target=\"_blank\">indexing and selection</a> that is too extensive to be covered here.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "XNEo",
+      "code_hash": "2beedede029603649de89fd7d569f0c5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"manipulating-data\">Manipulating Data</h2>\n<span class=\"paragraph\">You may apply Python's basic arithmetic operations to <code>Series</code>. For example:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "cKSM",
+      "code_hash": "7a3ef5a6ea0658efae543e4265278d3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='cKSM-0' random-id='e93bdf74-afc2-6615-d9a2-6380ece7edc2'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;value&#92;&quot;:852.469},{&#92;&quot;value&#92;&quot;:1015.785},{&#92;&quot;value&#92;&quot;:485.199}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BpyL",
+      "code_hash": "f29ff3e9ff8bb75482e698ab96bc70d7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><a href=\"http://www.numpy.org/\" rel=\"noopener noreferrer\" target=\"_blank\">NumPy</a> is a popular toolkit for scientific computing. <em>pandas</em> <code>Series</code> can be used as arguments to most NumPy functions:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "xGCO",
+      "code_hash": "0638dc26110ec7bd69b5b9b7b04efb6d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='xGCO-0' random-id='0c156f05-15a0-a13e-3238-428b5ec4535d'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;value&#92;&quot;:13.655892123842273},{&#92;&quot;value&#92;&quot;:13.831172270553898},{&#92;&quot;value&#92;&quot;:13.092314395044138}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "DFAK",
+      "code_hash": "8f372b467bcdde390bb67c5013501ce3",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">For more complex single-column transformations, you can use <code>Series.apply</code>. Like the Python <a href=\"https://docs.python.org/2/library/functions.html#map\" rel=\"noopener noreferrer\" target=\"_blank\">map function</a>,\n<code>Series.apply</code> accepts as an argument a <a href=\"https://docs.python.org/2/tutorial/controlflow.html#lambda-expressions\" rel=\"noopener noreferrer\" target=\"_blank\">lambda function</a>, which is applied to each value.</span>\n<span class=\"paragraph\">The example below creates a new <code>Series</code> that indicates whether <code>population</code> is over one million:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "IBlV",
+      "code_hash": "052946ce6e2049327e6fad42f17932f6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='IBlV-0' random-id='d72f2580-07ec-88b0-4e27-396fca0b5e36'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;value&#92;&quot;:false},{&#92;&quot;value&#92;&quot;:true},{&#92;&quot;value&#92;&quot;:false}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;boolean&quot;,&quot;bool&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "JZTG",
+      "code_hash": "65f75a6b1651a051edbd154e7745b201",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Modifying <code>DataFrames</code> is also straightforward. For example, the following code adds two <code>Series</code> to an existing <code>DataFrame</code>:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "hLEr",
+      "code_hash": "1152851bda603d9e062b5541cdff8eb6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='hLEr-0' random-id='05c354b7-be0c-bb3f-bb63-e5432b01e556'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469,&#92;&quot;Area square miles&#92;&quot;:46.87,&#92;&quot;Population density&#92;&quot;:18187.945380840625},{&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;,&#92;&quot;Population&#92;&quot;:1015785,&#92;&quot;Area square miles&#92;&quot;:176.53,&#92;&quot;Population density&#92;&quot;:5754.177760154082},{&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;,&#92;&quot;Population&#92;&quot;:485199,&#92;&quot;Area square miles&#92;&quot;:97.92,&#92;&quot;Population density&#92;&quot;:4955.055147058823}]&quot;' data-total-rows='3' data-total-columns='4' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Area square miles&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Population density&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "UWbn",
+      "code_hash": "9d810caccae2c0d1d55a9a2fb141f3f8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"exercise-1\">Exercise #1</h2>\n<span class=\"paragraph\">Modify the <code>cities</code> table by adding a new boolean column that is True if and only if <em>both</em> of the following are True:</span>\n<div class=\"language-scdoc highlight\"><pre><span></span><code><span class=\"k\">*</span> The city is named after a saint.\n\n<span class=\"k\">*</span> The city has an area greater than 50 square miles.\n</code></pre></div>\n<span class=\"paragraph\"><strong>Note:</strong> Boolean <code>Series</code> are combined using the bitwise, rather than the traditional boolean, operators. For example, when performing <em>logical and</em>, use <code>&amp;</code> instead of <code>and</code>.</span>\n<span class=\"paragraph\"><strong>Hint:</strong> \"San\" in Spanish means \"saint.\"</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Pbnw",
+      "code_hash": "2961b72164ecc8b5b8adb3fe7fd7861e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Pbnw-0' random-id='9707bd86-dd42-07bc-4236-aeed548648ea'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;New column&#92;&quot;:true},{&#92;&quot;New column&#92;&quot;:false}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;New column&quot;,[&quot;boolean&quot;,&quot;bool&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;download&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iCfv",
+      "code_hash": "9e50d77b1efbee75de05a58cfaa34fbb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"indexes\">Indexes</h2>\n<span class=\"paragraph\">Both <code>Series</code> and <code>DataFrame</code> objects also define an <code>index</code> property that assigns an identifier value to each <code>Series</code> item or <code>DataFrame</code> row.</span>\n<span class=\"paragraph\">By default, at construction, <em>pandas</em> assigns index values that reflect the ordering of the source data. Once created, the index values are stable; that is, they do not change when data is reordered.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "pEei",
+      "code_hash": "f2b37023ab13ecedaa732d0fe447404f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>RangeIndex(start=0, stop=3, step=1)</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "OqJB",
+      "code_hash": "96ee9c788190e38f392f44f77121cd71",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>RangeIndex(start=0, stop=3, step=1)</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TFSC",
+      "code_hash": "c90aef60a8d07adb149b987e7d6f13b0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Call <code>DataFrame.reindex</code> to manually reorder the rows. For example, the following has the same effect as sorting by city name:</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "mEfs",
+      "code_hash": "5b7806315d8e247af7adb90fd07fb063",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='mEfs-0' random-id='09ce5eb4-bedc-5249-294a-acc246666dd0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:2,&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;,&#92;&quot;Population&#92;&quot;:485199,&#92;&quot;Area square miles&#92;&quot;:97.92,&#92;&quot;Population density&#92;&quot;:4955.055147058823,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:0,&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469,&#92;&quot;Area square miles&#92;&quot;:46.87,&#92;&quot;Population density&#92;&quot;:18187.945380840625,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:1,&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;,&#92;&quot;Population&#92;&quot;:1015785,&#92;&quot;Area square miles&#92;&quot;:176.53,&#92;&quot;Population density&#92;&quot;:5754.177760154082,&#92;&quot;New column&#92;&quot;:true}]&quot;' data-total-rows='3' data-total-columns='5' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Area square miles&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Population density&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;New column&quot;,[&quot;boolean&quot;,&quot;bool&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "XRPu",
+      "code_hash": "f1610e271f5851e13572170a97cfea43",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Reindexing is a great way to shuffle (randomize) a <code>DataFrame</code>. In the example below, we take the index, which is array-like, and pass it to NumPy's <code>random.permutation</code> function, which shuffles its values in place. Calling <code>reindex</code> with this shuffled array causes the <code>DataFrame</code> rows to be shuffled in the same way.\nTry running the following cell multiple times!</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vZXm",
+      "code_hash": "275afa1e747e55f8debacff889f4d318",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='vZXm-0' random-id='0eb33595-b39c-ba5a-d26c-bd719559cdb4'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:0,&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469,&#92;&quot;Area square miles&#92;&quot;:46.87,&#92;&quot;Population density&#92;&quot;:18187.945380840625,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:2,&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;,&#92;&quot;Population&#92;&quot;:485199,&#92;&quot;Area square miles&#92;&quot;:97.92,&#92;&quot;Population density&#92;&quot;:4955.055147058823,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:1,&#92;&quot;City name&#92;&quot;:&#92;&quot;San Jose&#92;&quot;,&#92;&quot;Population&#92;&quot;:1015785,&#92;&quot;Area square miles&#92;&quot;:176.53,&#92;&quot;Population density&#92;&quot;:5754.177760154082,&#92;&quot;New column&#92;&quot;:true}]&quot;' data-total-rows='3' data-total-columns='5' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Area square miles&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Population density&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;New column&quot;,[&quot;boolean&quot;,&quot;bool&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "KFef",
+      "code_hash": "dc3854fce9b82193c9be1aded6b579b6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"exercise-2\">Exercise #2</h2>\n<span class=\"paragraph\">The <code>reindex</code> method allows index values that are not in the original <code>DataFrame</code>'s index values. Try it and see what happens if you use such values! Why do you think this is allowed?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "NVfb",
+      "code_hash": "308eb4feb76c474c3208f12a939920aa",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='NVfb-0' random-id='87c07ce6-c368-0517-5688-46bf222be2d0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:0,&#92;&quot;City name&#92;&quot;:&#92;&quot;San Francisco&#92;&quot;,&#92;&quot;Population&#92;&quot;:852469.0,&#92;&quot;Area square miles&#92;&quot;:46.87,&#92;&quot;Population density&#92;&quot;:18187.945380840625,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:2,&#92;&quot;City name&#92;&quot;:&#92;&quot;Sacramento&#92;&quot;,&#92;&quot;Population&#92;&quot;:485199.0,&#92;&quot;Area square miles&#92;&quot;:97.92,&#92;&quot;Population density&#92;&quot;:4955.055147058823,&#92;&quot;New column&#92;&quot;:false},{&#92;&quot;&#92;&quot;:4,&#92;&quot;City name&#92;&quot;:NaN,&#92;&quot;Population&#92;&quot;:NaN,&#92;&quot;Area square miles&#92;&quot;:NaN,&#92;&quot;Population density&#92;&quot;:NaN,&#92;&quot;New column&#92;&quot;:NaN},{&#92;&quot;&#92;&quot;:5,&#92;&quot;City name&#92;&quot;:NaN,&#92;&quot;Population&#92;&quot;:NaN,&#92;&quot;Area square miles&#92;&quot;:NaN,&#92;&quot;Population density&#92;&quot;:NaN,&#92;&quot;New column&#92;&quot;:NaN}]&quot;' data-total-rows='4' data-total-columns='5' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;City name&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Population&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Area square miles&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Population density&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;New column&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false' data-download-file-name='&quot;df&quot;'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "HzBO",
+      "code_hash": "1676cd61e6fe68e64771b214d08e2a54",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">This behavior is desirable because indexes are often strings pulled from the actual data (see the <a href=\"http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.reindex.html\" rel=\"noopener noreferrer\" target=\"_blank\"><em>pandas</em> reindex\ndocumentation</a> for an example\nin which the index values are browser names).</span>\n<span class=\"paragraph\">In this case, allowing \"missing\" indices makes it easy to reindex using an external list, as you don't have to worry about\nsanitizing the input.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}
