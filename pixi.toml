@@ -8,8 +8,11 @@ version = "0.1.0"
 [tasks]
 start = "marimo edit --headless --port 3000"
 
+[system-requirements]
+cuda = "12.6"
+
 [dependencies]
-marimo = ">=0.20.4,<0.21"
+marimo = ">=0.22.5,<0.23"
 python = ">=3.13,<3.14"
 numpy = ">=2.4.2,<3"
 nbformat = ">=5.10.4,<6"
@@ -20,3 +23,6 @@ python-lsp-server = ">=1.14.0,<2"
 python-lsp-ruff = ">=2.3.0,<3"
 matplotlib = ">=3.10.8,<4"
 pandas = ">=3.0.1,<4"
+transformers = ">=5.5.0,<6"
+pytorch-gpu = "*"
+cuda-version = "12.6.*"
