@@ -177,5 +177,43 @@ def _(merged_df):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # 3. Data Reduction
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## 3.1 Aggregation
+
+    Let's say we want to groupby city. Different cities should have different salary ranges. New York vs Wisconsin etc.
+    """)
+    return
+
+
+@app.cell
+def _(merged_df):
+    grouped_salary_by_city = merged_df.groupby(by="City")
+    salary_range = grouped_salary_by_city["Salary"].agg(["min", "max"])
+    salary_range
+    return (salary_range,)
+
+
+@app.cell
+def _(salary_range):
+    salary_range.loc[["New York", "Wisconsin"]]
+    return
+
+
+@app.cell
+def _(salary_range):
+    salary_range.sort_values(by="min", ascending=False)
+    return
+
+
 if __name__ == "__main__":
     app.run()
