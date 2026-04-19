@@ -1,0 +1,310 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.0",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "c972d444fe5bd7ce48eb72c9173e8b3a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"data-preprocessing-part-2\">Data Preprocessing Part 2</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "c8878fa59d914ae15a20d8903c768140",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"load-dataframes\">Load dataframes</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "46630e2f98cc32d39cc213623c99a53c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='bkHC-0' random-id='04a70b92-8c07-b5e7-2fb9-f2cc3dd5b461'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;USERID&#92;&quot;:8683,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:10&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Research and Instruction Librarian&#92;&quot;,&#92;&quot;Salary&#92;&quot;:55000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Massachusetts&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Boston&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:3880,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:41&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Nonprofits&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Program Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:3000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Wisconsin&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Milwaukee&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:8898,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:42&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Accounting Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:60000.0,&#92;&quot;Compensation&#92;&quot;:7000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;South Carolina&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Greenville&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:4463,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:09&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Manager of Information Services&#92;&quot;,&#92;&quot;Salary&#92;&quot;:100000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Michigan&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Detroit&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Man&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:763,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:13&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Business or Consulting&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Executive Assistant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:85000.0,&#92;&quot;Compensation&#92;&quot;:5000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Illinois&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Chicago&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Some college&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:10990,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:21&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Business or Consulting&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:98000.0,&#92;&quot;Compensation&#92;&quot;:1000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Georgia&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Atlanta&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;2 - 4 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;},{&#92;&quot;USERID&#92;&quot;:1101,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:24&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Health care&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Data Programmer Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:74000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Philadelphia&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;}]&quot;' data-total-rows='13404' data-total-columns='15' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;USERID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Timestamp&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Age&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Industry&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Job title&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Salary&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Compensation&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Currency&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Country&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;State&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;City&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Overall years of experience&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Years of experience in current job&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Education level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Gender&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "4e11e8424c5f918a3c2e5158da8876c5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>np.int64(1)</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "ee8fbb7bae5ae564c1f2cdafb3957a07",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "0dab7729c50a308f767a6364198b40a7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"data-integration\">Data Integration</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "f5de3b1e077f1b1d2224fbef635d4c3c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"load-new-dataframe\">Load New dataframe</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "0415dc19f698c3553173e48c55f8ba90",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='BYtC-0' random-id='332cac4a-7f92-c2f6-f465-4e53d24e6247'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;USERID&#92;&quot;:8683,&#92;&quot;CGPA&#92;&quot;:2.990626889,&#92;&quot;Salary_month_USD&#92;&quot;:4583.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:2437.0},{&#92;&quot;USERID&#92;&quot;:3880,&#92;&quot;CGPA&#92;&quot;:2.288131042,&#92;&quot;Salary_month_USD&#92;&quot;:5166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:740.0},{&#92;&quot;USERID&#92;&quot;:8898,&#92;&quot;CGPA&#92;&quot;:3.903323568,&#92;&quot;Salary_month_USD&#92;&quot;:5000.0,&#92;&quot;Special Bonus_GBP&#92;&quot;:3806.0},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;CGPA&#92;&quot;:2.470851745,&#92;&quot;Salary_month_USD&#92;&quot;:9333.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:4691.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;CGPA&#92;&quot;:3.559457479,&#92;&quot;Salary_month_USD&#92;&quot;:3750.0,&#92;&quot;Special Bonus_GBP&#92;&quot;:4580.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;CGPA&#92;&quot;:2.326334087,&#92;&quot;Salary_month_USD&#92;&quot;:5166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:3512.0},{&#92;&quot;USERID&#92;&quot;:4463,&#92;&quot;CGPA&#92;&quot;:3.261069814,&#92;&quot;Salary_month_USD&#92;&quot;:8333.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:4790.0},{&#92;&quot;USERID&#92;&quot;:763,&#92;&quot;CGPA&#92;&quot;:3.619165906,&#92;&quot;Salary_month_USD&#92;&quot;:7083.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:233.0},{&#92;&quot;USERID&#92;&quot;:10990,&#92;&quot;CGPA&#92;&quot;:3.904039211,&#92;&quot;Salary_month_USD&#92;&quot;:8166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:4862.0},{&#92;&quot;USERID&#92;&quot;:1101,&#92;&quot;CGPA&#92;&quot;:2.814663274,&#92;&quot;Salary_month_USD&#92;&quot;:6166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:1670.0}]&quot;' data-total-rows='13404' data-total-columns='4' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;USERID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;CGPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Salary_month_USD&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Special Bonus_GBP&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "546b06388b19dfc2f7e5077aa37153b6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MFSG",
+      "code_hash": "3b0d3883f7fdf346dd0657a553ce4551",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'pandas.DataFrame'>\nRangeIndex: 13403 entries, 0 to 13402\nData columns (total 4 columns):\n #   Column             Non-Null Count  Dtype  \n---  ------             --------------  -----  \n 0   USERID             13403 non-null  int64  \n 1   CGPA               13403 non-null  float64\n 2   Salary_month_USD   13403 non-null  float64\n 3   Special Bonus_GBP  13403 non-null  float64\ndtypes: float64(3), int64(1)\nmemory usage: 419.0 KB\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "f54942317f594395d2309518fa90b7a9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Kclp-0' random-id='b57d0022-7dc6-ca30-2afb-a05f53d98986'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;USERID&#92;&quot;:8683,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:10&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Research and Instruction Librarian&#92;&quot;,&#92;&quot;Salary&#92;&quot;:55000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Massachusetts&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Boston&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.990626889,&#92;&quot;Salary_month_USD&#92;&quot;:4583.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:2437.0},{&#92;&quot;USERID&#92;&quot;:3880,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:41&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Nonprofits&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Program Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:3000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Wisconsin&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Milwaukee&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.288131042,&#92;&quot;Salary_month_USD&#92;&quot;:5166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:740.0},{&#92;&quot;USERID&#92;&quot;:8898,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:42&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Accounting Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:60000.0,&#92;&quot;Compensation&#92;&quot;:7000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;South Carolina&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Greenville&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.903323568,&#92;&quot;Salary_month_USD&#92;&quot;:5000.0,&#92;&quot;Special Bonus_GBP&#92;&quot;:3806.0},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.470851745,&#92;&quot;Salary_month_USD&#92;&quot;:9333.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:4691.0},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.678003188,&#92;&quot;Salary_month_USD&#92;&quot;:10225.75,&#92;&quot;Special Bonus_GBP&#92;&quot;:3855.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.559457479,&#92;&quot;Salary_month_USD&#92;&quot;:3750.0,&#92;&quot;Special Bonus_GBP&#92;&quot;:4580.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.199180469,&#92;&quot;Salary_month_USD&#92;&quot;:7333.916667,&#92;&quot;Special Bonus_GBP&#92;&quot;:3517.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.899955619,&#92;&quot;Salary_month_USD&#92;&quot;:4500.0,&#92;&quot;Special Bonus_GBP&#92;&quot;:1140.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.326334087,&#92;&quot;Salary_month_USD&#92;&quot;:5166.666667,&#92;&quot;Special Bonus_GBP&#92;&quot;:3512.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.328179997,&#92;&quot;Salary_month_USD&#92;&quot;:9583.333333,&#92;&quot;Special Bonus_GBP&#92;&quot;:974.0}]&quot;' data-total-rows='26947' data-total-columns='18' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;USERID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Timestamp&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Age&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Industry&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Job title&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Salary&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Compensation&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Currency&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Country&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;State&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;City&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Overall years of experience&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Years of experience in current job&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Education level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Gender&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;CGPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Salary_month_USD&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Special Bonus_GBP&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "\u001b[33m[W 260419 13:33:00 table:969]\u001b(B\u001b[m Failed to get stats for column Salary_month_USD\n\u001b[33m[W 260419 13:33:00 table:969]\u001b(B\u001b[m Failed to get stats for column Special Bonus_GBP\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "emfo",
+      "code_hash": "e3e0477bd271296a64f398edcb524921",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"12-drop-derivable-data\">1.2 Drop Derivable data</h2>\n<span class=\"paragraph\">Identify which columns is derivable and drop that column.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "4b194f00804b35f8907d20ee50182521",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'pandas.DataFrame'>\nRangeIndex: 26947 entries, 0 to 26946\nData columns (total 18 columns):\n #   Column                              Non-Null Count  Dtype  \n---  ------                              --------------  -----  \n 0   USERID                              26947 non-null  int64  \n 1   Timestamp                           26947 non-null  str    \n 2   Age                                 26947 non-null  str    \n 3   Industry                            26947 non-null  str    \n 4   Job title                           26947 non-null  str    \n 5   Salary                              26947 non-null  float64\n 6   Compensation                        26947 non-null  float64\n 7   Currency                            26947 non-null  str    \n 8   Country                             26947 non-null  str    \n 9   State                               26947 non-null  str    \n 10  City                                26947 non-null  str    \n 11  Overall years of experience         26947 non-null  str    \n 12  Years of experience in current job  26947 non-null  str    \n 13  Education level                     26947 non-null  str    \n 14  Gender                              26947 non-null  str    \n 15  CGPA                                26947 non-null  float64\n 16  Salary_month_USD                    26947 non-null  float64\n 17  Special Bonus_GBP                   26947 non-null  float64\ndtypes: float64(5), int64(1), str(12)\nmemory usage: 7.2 MB\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "d19b0055ea89fa272880db77103c5921",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='nWHF-0' random-id='23e897f5-7846-ad9f-4a7a-c4c9f3077f11'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;USERID&#92;&quot;:8683,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:10&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Research and Instruction Librarian&#92;&quot;,&#92;&quot;Salary&#92;&quot;:55000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Massachusetts&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Boston&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.990626889,&#92;&quot;Special Bonus_GBP&#92;&quot;:2437.0},{&#92;&quot;USERID&#92;&quot;:3880,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:41&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Nonprofits&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Program Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:3000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Wisconsin&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Milwaukee&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.288131042,&#92;&quot;Special Bonus_GBP&#92;&quot;:740.0},{&#92;&quot;USERID&#92;&quot;:8898,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:42&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Accounting Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:60000.0,&#92;&quot;Compensation&#92;&quot;:7000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;South Carolina&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Greenville&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.903323568,&#92;&quot;Special Bonus_GBP&#92;&quot;:3806.0},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.470851745,&#92;&quot;Special Bonus_GBP&#92;&quot;:4691.0},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.678003188,&#92;&quot;Special Bonus_GBP&#92;&quot;:3855.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.559457479,&#92;&quot;Special Bonus_GBP&#92;&quot;:4580.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.199180469,&#92;&quot;Special Bonus_GBP&#92;&quot;:3517.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.899955619,&#92;&quot;Special Bonus_GBP&#92;&quot;:1140.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.326334087,&#92;&quot;Special Bonus_GBP&#92;&quot;:3512.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.328179997,&#92;&quot;Special Bonus_GBP&#92;&quot;:974.0}]&quot;' data-total-rows='26947' data-total-columns='17' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;USERID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Timestamp&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Age&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Industry&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Job title&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Salary&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Compensation&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Currency&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Country&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;State&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;City&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Overall years of experience&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Years of experience in current job&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Education level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Gender&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;CGPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Special Bonus_GBP&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "\u001b[33m[W 260419 13:33:00 table:969]\u001b(B\u001b[m Failed to get stats for column Special Bonus_GBP\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "iLit",
+      "code_hash": "4f4a932c70e63cb5644ed2a4cb9ef833",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"13-object-identification\">1.3 Object Identification</h2>\n<span class=\"paragraph\">Convert Special Bonus_GBP column to USD and rename 'Special Bonus_GBP' to 'Special_Bonus_USD'.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "0e55678632fe11132a4edd7aad9c1e60",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ZHCJ-0' random-id='ba189776-bba2-edb0-389b-0502737e8273'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;USERID&#92;&quot;:8683,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:10&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Research and Instruction Librarian&#92;&quot;,&#92;&quot;Salary&#92;&quot;:55000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Massachusetts&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Boston&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;Master&#x27;s degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.990626889,&#92;&quot;Special_Bonus_USD&#92;&quot;:3289.9500000000003},{&#92;&quot;USERID&#92;&quot;:3880,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:41&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Nonprofits&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Program Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:3000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Wisconsin&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Milwaukee&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.288131042,&#92;&quot;Special_Bonus_USD&#92;&quot;:999.0000000000001},{&#92;&quot;USERID&#92;&quot;:8898,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:02:42&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;25-34&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Accounting Manager&#92;&quot;,&#92;&quot;Salary&#92;&quot;:60000.0,&#92;&quot;Compensation&#92;&quot;:7000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;South Carolina&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Greenville&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;8 - 10 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.903323568,&#92;&quot;Special_Bonus_USD&#92;&quot;:5138.1},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.470851745,&#92;&quot;Special_Bonus_USD&#92;&quot;:6332.85},{&#92;&quot;USERID&#92;&quot;:4441,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:01&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;45-54&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Computing or Tech&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Systems Analyst&#92;&quot;,&#92;&quot;Salary&#92;&quot;:112000.0,&#92;&quot;Compensation&#92;&quot;:10000.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;US&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Missouri&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;St. Louis&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.678003188,&#92;&quot;Special_Bonus_USD&#92;&quot;:5204.25},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.559457479,&#92;&quot;Special_Bonus_USD&#92;&quot;:6183.0},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.199180469,&#92;&quot;Special_Bonus_USD&#92;&quot;:4747.950000000001},{&#92;&quot;USERID&#92;&quot;:7537,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:02&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Accounting, Banking &amp; Finance&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Senior Accountant&#92;&quot;,&#92;&quot;Salary&#92;&quot;:45000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;United States&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Florida&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Palm Coast&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;21 - 30 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;College degree&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:3.899955619,&#92;&quot;Special_Bonus_USD&#92;&quot;:1539.0},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.326334087,&#92;&quot;Special_Bonus_USD&#92;&quot;:4741.200000000001},{&#92;&quot;USERID&#92;&quot;:12007,&#92;&quot;Timestamp&#92;&quot;:&#92;&quot;4/27/2021 11:03:07&#92;&quot;,&#92;&quot;Age&#92;&quot;:&#92;&quot;35-44&#92;&quot;,&#92;&quot;Industry&#92;&quot;:&#92;&quot;Education (Higher Education)&#92;&quot;,&#92;&quot;Job title&#92;&quot;:&#92;&quot;Deputy Title IX Coordinator/ Assistant Director Office of Equity and Diversity&#92;&quot;,&#92;&quot;Salary&#92;&quot;:62000.0,&#92;&quot;Compensation&#92;&quot;:0.0,&#92;&quot;Currency&#92;&quot;:&#92;&quot;USD&#92;&quot;,&#92;&quot;Country&#92;&quot;:&#92;&quot;USA&#92;&quot;,&#92;&quot;State&#92;&quot;:&#92;&quot;Pennsylvania&#92;&quot;,&#92;&quot;City&#92;&quot;:&#92;&quot;Scranton&#92;&quot;,&#92;&quot;Overall years of experience&#92;&quot;:&#92;&quot;11 - 20 years&#92;&quot;,&#92;&quot;Years of experience in current job&#92;&quot;:&#92;&quot;5-7 years&#92;&quot;,&#92;&quot;Education level&#92;&quot;:&#92;&quot;PhD&#92;&quot;,&#92;&quot;Gender&#92;&quot;:&#92;&quot;Woman&#92;&quot;,&#92;&quot;CGPA&#92;&quot;:2.328179997,&#92;&quot;Special_Bonus_USD&#92;&quot;:1314.9}]&quot;' data-total-rows='26947' data-total-columns='17' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;USERID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Timestamp&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Age&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Industry&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Job title&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Salary&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Compensation&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Currency&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Country&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;State&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;City&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Overall years of experience&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Years of experience in current job&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Education level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Gender&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;CGPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Special_Bonus_USD&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "ab26071143285b65f059e7c261dbd48f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"2-data-transformation-normalization\">2. Data transformation - Normalization</h1>\n<ul>\n<li>Min-max normalization</li>\n<li>Zscore/Standard normalization</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "2d07dc0548d3da4707b592e709babd81",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"21-min-max-normalization\">2.1 Min-max normalization</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "1dc9176c3e4a434a45d9c7a971a5affe",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>array([[0.15099459],\n       [0.21266099],\n       [0.19504202],\n       ...,\n       [0.76765861],\n       [0.76765861],\n       [0.30075585]], shape=(26947, 1))</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "dd061c66c6e6f8946c5f0a91ad213f54",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>array([[-0.04554314],\n       [-1.22518789],\n       [ 0.9060972 ],\n       ...,\n       [ 1.11533295],\n       [ 0.4090754 ],\n       [-0.87344939]], shape=(26947, 1))</pre>"
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}

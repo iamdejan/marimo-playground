@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.22.5"
+__generated_with = "0.23.0"
 app = marimo.App(width="medium")
 
 
@@ -246,7 +246,7 @@ def _(mo):
 
 @app.cell
 def _(df, pd):
-    pd.DataFrame(df["Gender"].unique())
+    pd.DataFrame(df["Gender"].unique(), columns=["Gender"])
     return
 
 
@@ -254,12 +254,7 @@ def _(df, pd):
 def _(df, pd):
     df["Gender"] = df["Gender"].replace("Prefer not to answer", "Other")
     df["Gender"] = df["Gender"].replace("Other or prefer not to answer", "Other")
-    pd.DataFrame(df["Gender"].unique())
-    return
-
-
-@app.cell
-def _():
+    pd.DataFrame(df["Gender"].unique(), columns=["Gender"])
     return
 
 

@@ -9,12 +9,12 @@ version = "0.1.0"
 start = "marimo edit --headless --port 3000"
 
 [system-requirements]
-cuda = "12.6"
+cuda = "12.4"
 
 [dependencies]
-marimo = ">=0.22.5,<0.23"
-python = ">=3.13,<3.14"
-numpy = ">=2.4.2,<3"
+marimo = ">=0.23.0,<0.24"
+python = ">=3.11,<3.12"
+numpy = ">=2.0.0,<3"
 nbformat = ">=5.10.4,<6"
 ruff = ">=0.15.1,<0.16"
 jaxtyping = ">=0.3.7,<0.4"
@@ -22,10 +22,22 @@ beartype = ">=0.22.9,<0.23"
 python-lsp-server = ">=1.14.0,<2"
 python-lsp-ruff = ">=2.3.0,<3"
 matplotlib = ">=3.10.8,<4"
-pandas = ">=3.0.1,<4"
+pandas = ">=2.0.0,<4"
+scikit-learn = ">=1.0.0,<2"
+pip = ">=23.0,<25"
+pytorch-gpu = ">=2.4.0,<2.6"
+torchvision = "*"   # <-- Added to ensure Conda handles the vision backend
+torchaudio = "*"    # <-- Added to ensure Conda handles the audio backend
+cuda-version = "12.4.*"
+fsspec = "<=2026.2.0"
+dill = "<0.4.1"
+
+[pypi-dependencies]
 transformers = ">=5.5.0,<6"
-pytorch-gpu = "*"
-cuda-version = "12.6.*"
 datasets = ">=4.0.0,<5"
 unsloth = ">=2025.6.1,<2026"
-scikit-learn = ">=1.8.0,<2"
+unsloth-zoo = "*"   # <-- Added explicitly for Unsloth
+trl = "==0.23.1"
+peft = ">=0.18.1,<0.19"
+accelerate = ">=1.13.0,<2"
+bitsandbytes = ">=0.49.2,<0.50"
