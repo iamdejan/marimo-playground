@@ -144,6 +144,30 @@ def _(df):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    We can use `sklearn.impute.SimpleImputer` to complete missing values with simple strategies.
+    """)
+    return
+
+
+@app.cell
+def _(df):
+    from sklearn.impute import SimpleImputer
+
+    most_frequent_imputer = SimpleImputer(strategy="most_frequent")
+    df.iloc[:, :] = most_frequent_imputer.fit_transform(df)
+    df.head()
+    return
+
+
+@app.cell
+def _(df):
+    df.isna().sum()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     # 2. Noisy data
 
     - Noise can be random errors and/or outliers.
@@ -171,7 +195,7 @@ def _(df):
 
 @app.cell
 def _(df):
-    df.boxplot(column=["Salary"])
+    df.boxplot(column=["Salary", "Compensation"])
     return
 
 
@@ -195,7 +219,8 @@ def _(df, pd):
 @app.cell
 def _(df, np, stats):
     df.drop(df[np.abs(stats.zscore(df["Salary"])) >= 3].index, inplace=True)
-    df.boxplot(column=["Salary"])
+    df.drop(df[np.abs(stats.zscore(df["Compensation"])) >= 3].index, inplace=True)
+    df.boxplot(column=["Salary", "Compensation"])
     return
 
 

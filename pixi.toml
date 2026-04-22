@@ -12,7 +12,7 @@ start = "marimo edit --headless --port 3000"
 cuda = "12.4"
 
 [dependencies]
-marimo = ">=0.23.0,<0.24"
+marimo = ">=0.23.1,<0.24"
 python = ">=3.11,<3.12"
 numpy = ">=2.0.0,<3"
 nbformat = ">=5.10.4,<6"
